@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SwagKong</title>
+
+<script src="https://cdn.tailwindcss.com"></script>
+<script src="https://unpkg.com/scrollreveal"></script>
+<script src="https://s3.tradingview.com/tv.js"></script>
+
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+
+<style>
+body { font-family:'Inter',sans-serif; background:#050505; overflow-x:hidden; }
+.font-orbitron { font-family:'Orbitron',sans-serif; }
+
+.glass { background:rgba(255,255,255,0.04); backdrop-filter:blur(16px); border:1px solid rgba(255,255,255,0.08); }
+
+.bg-animated {
+  background:linear-gradient(-45deg,#000,#0a0a0a,#111,#000);
+  background-size:400% 400%;
+  animation:gradientMove 12s ease infinite;
+}
+@keyframes gradientMove {
+0%{background-position:0% 50%}
+50%{background-position:100% 50%}
+100%{background-position:0% 50%}
+}
+
+/* LOGO HOVER */
+.logo-item img {
+  height:40px;
+  filter:grayscale(100%) brightness(0.8);
+  transition:all .4s ease;
+}
+.logo-item:hover img {
+  filter:grayscale(0%) brightness(1.1);
+  transform:scale(1.08);
+  filter: drop-shadow(0 0 12px rgba(255,255,255,0.6));
+}
+.logo-text { opacity:.5; transition:.3s; }
+.logo-item:hover .logo-text { opacity:1; }
+</style>
+</head>
+
+<body class="text-white">
+
+<!-- HERO -->
+<section class="relative h-screen flex items-center">
+  <img src="hero.png" class="absolute w-full h-full object-cover opacity-60">
+  <div class="absolute inset-0 bg-black/70"></div>
+
+  <div class="relative z-10 max-w-7xl mx-auto px-6">
+    <h1 class="text-6xl md:text-7xl font-orbitron mb-6">
+      <span id="typing"></span><span id="cursor">|</span>
+    </h1>
+    <p class="text-gray-300 mb-6">Execution. Discipline. Real experience.</p>
+  </div>
+</section>
+
+<!-- FIRMS -->
+<section class="py-24 px-6 bg-animated text-center">
+<h2 class="text-4xl font-orbitron mb-10">Trusted Experience</h2>
+
+<div class="grid grid-cols-2 md:grid-cols-4 gap-10">
+
+<a href="https://superfunded.com/?aff=50" target="_blank" class="logo-item flex flex-col items-center">
+<img src="superfunded.png">
+<p class="text-xs text-gray-500 mt-2 logo-text">Fast payouts</p>
+</a>
+
+<a href="https://pipfarm.com/?ref=swagkong" target="_blank" class="logo-item flex flex-col items-center">
+<img src="pipfarm.png">
+<p class="text-xs text-gray-500 mt-2 logo-text">Solid system</p>
+</a>
+
+<a href="https://www.hyrotrader.com/?coupon=swagkong" target="_blank" class="logo-item flex flex-col items-center">
+<img src="hyro.png">
+<p class="text-xs text-gray-500 mt-2 logo-text">Modern platform</p>
+</a>
+
+<a href="https://t.co/XPRI1gzuNB" target="_blank" class="logo-item flex flex-col items-center">
+<img src="8cap.png">
+<p class="text-xs text-gray-500 mt-2 logo-text">Broker backed</p>
+</a>
+
+<a href="https://checkout.bemfunding.com/?ref=SwagKong" target="_blank" class="logo-item flex flex-col items-center">
+<img src="bemfunding.png">
+<p class="text-xs text-gray-500 mt-2 logo-text">Growing firm</p>
+</a>
+
+<a href="https://fundedtradermarkets.com/ref/swagkong" target="_blank" class="logo-item flex flex-col items-center">
+<img src="ftm.png">
+<p class="text-xs text-gray-500 mt-2 logo-text">Popular choice</p>
+</a>
+
+<a href="https://go.monetafunded.com/visit/?bta=35301&brand=monetafunded" target="_blank" class="logo-item flex flex-col items-center">
+<img src="moneta.png">
+<p class="text-xs text-gray-500 mt-2 logo-text">Clean execution</p>
+</a>
+
+<a href="https://partners.dnafunded.com/click?campaign_id=1&ref_id=751" target="_blank" class="logo-item flex flex-col items-center">
+<img src="dna.png">
+<p class="text-xs text-gray-500 mt-2 logo-text">Advanced tools</p>
+</a>
+
+</div>
+
+<p class="text-xs text-gray-500 mt-10">
+Firms I’ve personally traded with. Some links may be affiliate links.
+</p>
+
+</section>
+  
+<!-- CONTACT -->
+<section class="py-24 text-center">
+<h2 class="text-3xl font-orbitron mb-4">Open for Collab & Partnership</h2>
+<a href="mailto:Hello@swagkong.com" class="border px-6 py-3 rounded-xl">Contact Me</a>
+</section>
+
+<footer class="text-center text-gray-500 py-6">
+Some links may be affiliate links.
+</footer>
+
+<script>
+// typing animation
+const texts=["KEEP IT SIMPLE.","TRADE SMART.","NO NOISE."];
+let count=0,index=0,currentText='',letter='';
+
+(function type(){
+if(count===texts.length){count=0;}
+currentText=texts[count];
+letter=currentText.slice(0,++index);
+document.getElementById('typing').textContent=letter;
+
+if(letter.length===currentText.length){
+setTimeout(erase,1500);
+}else{
+setTimeout(type,70);
+}
+})();
+
+function erase(){
+if(index>0){
+letter=currentText.slice(0,--index);
+document.getElementById('typing').textContent=letter;
+setTimeout(erase,40);
+}else{
+count++;
+setTimeout(type,300);
+}
+}
+
+setInterval(()=>{
+const cursor=document.getElementById('cursor');
+cursor.style.opacity=cursor.style.opacity==='0'?'1':'0';
+},500);
+</script>
+
+</body>
+</html>
