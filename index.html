@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>SwagKong</title>
+<title>SwagKong Elite</title>
 
 <script src="https://cdn.tailwindcss.com"></script>
 <script src="https://unpkg.com/scrollreveal"></script>
@@ -16,51 +16,66 @@ body { font-family:'Inter',sans-serif; background:#050505; overflow-x:hidden; }
 .font-orbitron { font-family:'Orbitron',sans-serif; }
 
 .glass { background:rgba(255,255,255,0.04); backdrop-filter:blur(16px); border:1px solid rgba(255,255,255,0.08); }
+.glow:hover { box-shadow:0 0 40px rgba(255,255,255,0.2); }
 
 .bg-animated {
   background:linear-gradient(-45deg,#000,#0a0a0a,#111,#000);
   background-size:400% 400%;
   animation:gradientMove 12s ease infinite;
 }
-@keyframes gradientMove {
-0%{background-position:0% 50%}
-50%{background-position:100% 50%}
-100%{background-position:0% 50%}
-}
+@keyframes gradientMove {0%{background-position:0% 50%}50%{background-position:100% 50%}100%{background-position:0% 50%}}
 
-/* LOGO HOVER */
-.logo-item img {
-  height:40px;
-  filter:grayscale(100%) brightness(0.8);
-  transition:all .4s ease;
-}
-.logo-item:hover img {
-  filter:grayscale(0%) brightness(1.1);
-  transform:scale(1.08);
-  filter: drop-shadow(0 0 12px rgba(255,255,255,0.6));
-}
+.logo-item img { height:40px; filter:grayscale(100%) brightness(0.8); transition:all .4s ease; }
+.logo-item:hover img { filter:grayscale(0%) brightness(1.1); transform:scale(1.08); filter: drop-shadow(0 0 12px rgba(255,255,255,0.6)); }
 .logo-text { opacity:.5; transition:.3s; }
 .logo-item:hover .logo-text { opacity:1; }
+
+.cursor-glow { position:fixed;width:300px;height:300px;border-radius:50%;pointer-events:none;background:radial-gradient(circle,rgba(255,255,255,0.08),transparent 70%);transform:translate(-50%,-50%);z-index:999; }
 </style>
 </head>
 
 <body class="text-white">
 
-<!-- HERO -->
-<section class="relative h-screen flex items-center">
-  <img src="hero.png" class="absolute w-full h-full object-cover opacity-60">
-  <div class="absolute inset-0 bg-black/70"></div>
+<div id="cursor" class="cursor-glow"></div>
 
-  <div class="relative z-10 max-w-7xl mx-auto px-6">
-    <h1 class="text-6xl md:text-7xl font-orbitron mb-6">
-      <span id="typing"></span><span id="cursor">|</span>
-    </h1>
-    <p class="text-gray-300 mb-6">Execution. Discipline. Real experience.</p>
-  </div>
+<!-- NAV -->
+<header class="fixed w-full z-50 backdrop-blur bg-black/40">
+<div class="max-w-7xl mx-auto flex justify-between items-center px-6 py-4">
+<h1 class="font-orbitron">SWAGKONG</h1>
+<nav class="space-x-6 text-sm">
+<a href="#about">About</a>
+<a href="#firms">Firms</a>
+<a href="#chart">Live</a>
+<a href="#blog">Insights</a>
+<a href="#join">Join</a>
+</nav>
+</div>
+</header>
+
+<!-- HERO VIDEO -->
+<section class="relative h-screen flex items-center">
+<video autoplay muted loop class="absolute w-full h-full object-cover opacity-40">
+<source src="hero.mp4" type="video/mp4">
+</video>
+<div class="absolute inset-0 bg-black/70"></div>
+
+<div class="relative z-10 max-w-7xl mx-auto px-6">
+<h1 class="text-6xl md:text-7xl font-orbitron mb-6"><span id="typing"></span><span id="cursor">|</span></h1>
+<p class="text-gray-300 mb-6">Execution. Discipline. Real experience.</p>
+<a href="#join" class="px-8 py-4 bg-white text-black rounded-xl">Join Now</a>
+</div>
+</section>
+
+<!-- ABOUT -->
+<section id="about" class="py-24 px-6">
+<div class="max-w-4xl mx-auto text-center">
+<h2 class="text-4xl font-orbitron mb-4">The Edge</h2>
+<p class="text-gray-400">Built from real market experience since 2014. No theory, only execution.</p>
+</div>
 </section>
 
 <!-- FIRMS -->
-<section class="py-24 px-6 bg-animated text-center">
+<section id="firms" class="py-28 px-6 bg-animated text-center">
 <h2 class="text-4xl font-orbitron mb-10">Trusted Experience</h2>
 
 <div class="grid grid-cols-2 md:grid-cols-4 gap-10">
@@ -97,7 +112,7 @@ body { font-family:'Inter',sans-serif; background:#050505; overflow-x:hidden; }
 
 <a href="https://go.monetafunded.com/visit/?bta=35301&brand=monetafunded" target="_blank" class="logo-item flex flex-col items-center">
 <img src="moneta.png">
-<p class="text-xs text-gray-500 mt-2 logo-text">Moneta FUnded</p>
+<p class="text-xs text-gray-500 mt-2 logo-text">Moneta Funded</p>
 </a>
 
 <a href="https://partners.dnafunded.com/click?campaign_id=1&ref_id=751" target="_blank" class="logo-item flex flex-col items-center">
@@ -106,22 +121,42 @@ body { font-family:'Inter',sans-serif; background:#050505; overflow-x:hidden; }
 </a>
 
 </div>
-
-<p class="text-xs text-gray-500 mt-10">
-Firms I’ve personally traded with. Some links may be affiliate links.
-</p>
-
+<p class="text-xs text-gray-500 mt-10">Firms I’ve personally traded with. Some links may be affiliate links.</p>
 </section>
-  
+
+<!-- LIVE CHART -->
+<section id="chart" class="py-24 px-6">
+<div class="max-w-6xl mx-auto">
+<h2 class="text-3xl font-orbitron mb-6">Live Market</h2>
+<div id="tradingview_chart"></div>
+</div>
+</section>
+
+<!-- BLOG -->
+<section id="blog" class="py-24 px-6">
+<div class="max-w-6xl mx-auto grid md:grid-cols-3 gap-6">
+<div class="glass p-6">Psychology</div>
+<div class="glass p-6">Prop Firm Reviews</div>
+<div class="glass p-6">Risk Management</div>
+</div>
+</section>
+
+<!-- JOIN / FUNNEL -->
+<section id="join" class="py-24 px-6 text-center bg-animated">
+<h2 class="text-4xl font-orbitron mb-4">Join The Elite</h2>
+<p class="text-gray-400 mb-6">Get access to insights, setups & community</p>
+<input type="email" placeholder="Enter your email" class="px-4 py-3 rounded text-black">
+<button class="px-6 py-3 bg-white text-black rounded">Get Access</button>
+</section>
+
 <!-- CONTACT -->
 <section class="py-24 text-center">
 <h2 class="text-3xl font-orbitron mb-4">Open for Collab & Partnership</h2>
-<a href="mailto:Hello.swagkong@gmail.com.com" class="border px-6 py-3 rounded-xl">Contact Me</a>
+<p class="text-gray-400 mb-6">Let’s build something meaningful together.</p>
+<a href="mailto:Hello@swagkong.com" class="border px-6 py-3 rounded-xl hover:bg-white hover:text-black transition">Contact Me</a>
 </section>
 
-<footer class="text-center text-gray-500 py-6">
-Some links may be affiliate links.
-</footer>
+<footer class="py-6 text-center text-gray-500">© 2026 SwagKong Elite</footer>
 
 <script>
 // typing animation
@@ -152,10 +187,30 @@ setTimeout(type,300);
 }
 }
 
+// blinking cursor
 setInterval(()=>{
 const cursor=document.getElementById('cursor');
 cursor.style.opacity=cursor.style.opacity==='0'?'1':'0';
 },500);
+
+// cursor glow movement
+const cursor=document.getElementById('cursor');
+document.addEventListener('mousemove',e=>{cursor.style.left=e.clientX+'px';cursor.style.top=e.clientY+'px';});
+
+// ScrollReveal
+ScrollReveal().reveal('section',{distance:'80px',duration:1200,interval:100});
+
+// TradingView Chart
+new TradingView.widget({
+  "width": "100%",
+  "height": 500,
+  "symbol": "FX:EURUSD",
+  "interval": "15",
+  "timezone": "Etc/UTC",
+  "theme": "dark",
+  "style": "1",
+  "container_id": "tradingview_chart"
+});
 </script>
 
 </body>
