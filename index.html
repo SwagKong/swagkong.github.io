@@ -4,6 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>SwagKong Elite</title>
+<script src="https://s3.tradingview.com/tv.js"></script>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Cinzel:wght@400;600;700&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
 
 <style>
@@ -266,10 +267,6 @@ footer{border-top:1px solid var(--bd);padding:1.75rem 2rem;display:flex;justify-
 </head>
 <body>
 
-<!-- ✅ CURSOR ELEMENTS (this was the missing fix) -->
-<div id="c-ring"></div>
-<div id="c-dot"></div>
-
 <!-- POST MODAL -->
 <div id="post-modal">
   <button class="modal-close" id="modal-close">✕ Close</button>
@@ -471,7 +468,7 @@ footer{border-top:1px solid var(--bd);padding:1.75rem 2rem;display:flex;justify-
     <h2 class="s-ttl sr d1">Open for <em>Partnership</em></h2>
     <p class="sr d2" style="font-family:'Cormorant Garamond',serif;font-size:1.05rem;font-style:italic;color:var(--g2);margin-top:.5rem;">Prop firms, brands, creators — let's build something meaningful.</p>
     <div class="sr d3" style="margin-top:2.5rem;">
-      <a href="mailto:hello.swagkong@gmail.com" class="c-lnk"><span>↗</span><span>hello.swagkong@gmail.com</span></a>
+      <a href="/cdn-cgi/l/email-protection#543c3138383b7a272335333f3b3a33143339353d387a373b39" class="c-lnk"><span>↗</span><span><span class="__cf_email__" data-cfemail="f69e939a9a99d8858197919d999891b6919b979f9ad895999b">[email&#160;protected]</span></span></a>
     </div>
   </div>
 </section>
@@ -487,9 +484,13 @@ footer{border-top:1px solid var(--bd);padding:1.75rem 2rem;display:flex;justify-
   </div>
 </footer>
 
-<script>
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
 /* ═══════════════════════════════════════════════
    BLOG DATA
+   To add a new post: copy one object, fill in the
+   fields below. cat options:
+   prop-firms | psychology | risk | setups
+   body supports: <p> <h3> <strong> <blockquote> <ul><li>
 ═══════════════════════════════════════════════ */
 const POSTS = [
   {
@@ -502,30 +503,38 @@ const POSTS = [
     excerpt: 'You have a setup. You have a plan. And yet — you still lose. Not because your strategy is broken, but because your mind is working against you. Here are the six psychological traps I have fallen into personally, and exactly how I got out of each one.',
     body: `
       <p>I have been trading since 2014. I have blown accounts, passed funded challenges, scaled capital, and sat through drawdowns that made me question everything. What I can tell you with certainty after all of it: <strong>the market did not beat me. My mind did.</strong></p>
+
       <p>This is not a motivational post. This is a breakdown of the exact psychological patterns that destroy traders — including me at different points — and the specific things I did to address each one. Keep this somewhere you can come back to.</p>
+
       <h3>1. Revenge Trading — The Most Expensive Emotion in Markets</h3>
       <p>You take a loss. A clean setup, followed the rules, stopped out. Then something shifts. Suddenly you are back at the charts looking for a trade — not because there is a setup, but because you want your money back. That is revenge trading, and it has cost me more than any single bad setup ever has.</p>
       <blockquote>The market does not know you exist. It cannot owe you anything. Every trade you take to "get back" what you lost is an emotional trade, and emotional trades do not follow your rules.</blockquote>
       <p>What I do now: <strong>after any loss that hits more than 50% of my daily limit, I close the platform.</strong> Not because I am scared — because I know what my brain wants to do next, and I am not going to let it.</p>
+
       <h3>2. FOMO — Fear of Missing Out</h3>
       <p>Price starts moving hard. You were not in. It keeps going. You jump in late — chasing — because something in your brain says <em>this move is going to run forever and you are going to miss it.</em></p>
       <p>You almost never catch it. You almost always buy the top or sell the bottom of a move you should have watched from the sidelines.</p>
       <p>The fix is simple but not easy: <strong>accept that you will miss trades.</strong> Not some trades. A lot of trades. The best traders I know talk more about the trades they did not take than the ones they did. Missing a move costs you nothing. Chasing it costs you real money.</p>
+
       <h3>3. Overtrading — Confusing Activity With Progress</h3>
       <p>There is a version of discipline that looks like sitting on your hands doing nothing for three hours. Most traders cannot tolerate that. They need to be in a trade to feel like they are working. So they force entries. They lower their standards. They trade out of boredom.</p>
       <blockquote>The market pays you to be right, not to be busy. Quality over quantity is not a cliché — it is the edge.</blockquote>
       <p>I track my trades by category now: <strong>A setups, B setups, C setups.</strong> A setups are the ones that fully meet my criteria. B setups meet most of them. C setups are the ones I should not have taken. My data shows C setups have a negative expectancy over time. They look like trades. They are not.</p>
+
       <h3>4. Anchoring to Your Entry Price</h3>
       <p>You enter at 2,320. Price moves to 2,310. You do not exit — because in your mind, 2,320 is a number that matters. It does not. <strong>The market has no idea where you got in.</strong> The only question that matters is: if I did not have this position right now, would I enter it at the current price?</p>
       <p>If the answer is no, you should not be in it. Holding because you want to break even is not a strategy — it is hope. Hope is not an edge.</p>
+
       <h3>5. Outcome Bias — Judging Decisions by Results</h3>
       <p>You followed your plan perfectly. The trade lost. You start questioning the plan. Meanwhile, you broke every rule on a different trade — and it won. You start thinking the rule-breaking was smart.</p>
       <p>This is outcome bias, and it slowly corrupts your process. <strong>A good trade is one that followed your rules. A bad trade is one that did not.</strong> The result is separate. Over a large enough sample size, good process produces good results. Over a small sample, anything can happen.</p>
       <blockquote>Judge your decisions by the quality of the process, never by the outcome of a single trade.</blockquote>
+
       <h3>6. Overconfidence After a Win Streak</h3>
       <p>You have five winners in a row. You start to feel untouchable. You increase position size. You take setups you normally would not. You stop following your checklist because it feels unnecessary — clearly you have figured something out.</p>
       <p>Then one trade wipes back most of what you made. It always happens this way. Win streaks do not mean your edge got better. They mean variance went your way for a period of time.</p>
       <p>After any win streak I deliberately do the opposite of what my emotions want: <strong>I keep size exactly the same, I tighten my entry criteria, and I remind myself that I am one bad decision away from giving it all back.</strong></p>
+
       <h3>What To Do With All of This</h3>
       <p>Print this out. Or save it somewhere you will actually see it. Because none of this matters if you only read it once and forget it the next time you are in a losing trade at 2am wondering if you should add to the position.</p>
       <ul>
@@ -622,12 +631,12 @@ const POSTS = [
     id: 6,
     cat: 'psychology',
     featured: false,
-    title: 'How I Recovered From a 7% Drawdown Without Blowing Up',
+    title: 'How I Recovered From a 15% Drawdown Without Blowing Up',
     date: 'Apr 2026',
     read: '5 min read',
     excerpt: 'It happens to everyone. The question is not if you will face a drawdown — it is how you handle it. Here is exactly what I did.',
     body: `
-      <p>Last quarter I hit a 7% drawdown on an evaluation account. Here is what I did to come back.</p>
+      <p>Last quarter I hit a 15% drawdown on a personal account. Here is what I did to come back.</p>
       <h3>Step 1: Stop Trading Immediately</h3>
       <p>Not after one more trade. Stop. Log off. Take a minimum of three days away from the charts.</p>
       <h3>Step 2: Review Without Emotion</h3>
@@ -641,9 +650,42 @@ const POSTS = [
   }
 ];
 
-/* ─────────────────────────────────────────
-   SCROLL REVEAL OBSERVER
-───────────────────────────────────────── */
+/* ══════════════════════════════════════════
+   1. CURSOR — must be first so ring & dot
+      are available to everything below
+══════════════════════════════════════════ */
+const ring = document.getElementById('c-ring');
+const dot  = document.getElementById('c-dot');
+let mx=0, my=0, rx=0, ry=0;
+
+document.addEventListener('mousemove', e => {
+  if (!dot) return;
+  mx = e.clientX; my = e.clientY;
+  dot.style.left = mx + 'px';
+  dot.style.top  = my + 'px';
+});
+
+function attachHover(el) {
+  if (!ring) return;
+  el.addEventListener('mouseenter', () => ring.classList.add('expand'));
+  el.addEventListener('mouseleave', () => ring.classList.remove('expand'));
+}
+document.querySelectorAll('a, button').forEach(attachHover);
+
+(function ac() {
+  if (ring) {
+    rx += (mx - rx) * .1;
+    ry += (my - ry) * .1;
+    ring.style.left = rx + 'px';
+    ring.style.top  = ry + 'px';
+  }
+  requestAnimationFrame(ac);
+})();
+
+/* ══════════════════════════════════════════
+   2. SCROLL REVEAL — defined before
+      renderBlog() so obs is always ready
+══════════════════════════════════════════ */
 const obs = new IntersectionObserver(entries => {
   entries.forEach(e => {
     if (e.isIntersecting) { e.target.classList.add('in'); obs.unobserve(e.target); }
@@ -652,9 +694,12 @@ const obs = new IntersectionObserver(entries => {
 
 document.querySelectorAll('.sr, .sr-l, .sr-r').forEach(el => obs.observe(el));
 
-/* ── RENDER BLOG ── */
+/* ══════════════════════════════════════════
+   3. BLOG RENDER
+══════════════════════════════════════════ */
 function renderBlog(filter) {
   const grid = document.getElementById('blog-grid');
+  if (!grid) return;
   const list = filter === 'all' ? POSTS : POSTS.filter(p => p.cat === filter);
   grid.innerHTML = list.map((p, i) => `
     <div class="blog-card${p.featured && filter === 'all' ? ' featured' : ''} sr d${Math.min(i + 1, 8)}"
@@ -671,21 +716,20 @@ function renderBlog(filter) {
     </div>
   `).join('');
   grid.querySelectorAll('.sr').forEach(el => obs.observe(el));
-  grid.querySelectorAll('.blog-card').forEach(el => {
-    el.addEventListener('mouseenter', () => ring.classList.add('expand'));
-    el.addEventListener('mouseleave', () => ring.classList.remove('expand'));
-  });
+  grid.querySelectorAll('.blog-card').forEach(attachHover);
 }
 
-/* ── POST MODAL ── */
+/* ══════════════════════════════════════════
+   4. POST MODAL
+══════════════════════════════════════════ */
 function openPost(id) {
   const p = POSTS.find(x => x.id === id);
   if (!p) return;
-  document.getElementById('m-cat').textContent = p.cat.replace('-', ' ').toUpperCase();
+  document.getElementById('m-cat').textContent   = p.cat.replace('-', ' ').toUpperCase();
   document.getElementById('m-title').textContent = p.title;
-  document.getElementById('m-date').textContent = p.date;
-  document.getElementById('m-read').textContent = p.read;
-  document.getElementById('m-body').innerHTML = p.body;
+  document.getElementById('m-date').textContent  = p.date;
+  document.getElementById('m-read').textContent  = p.read;
+  document.getElementById('m-body').innerHTML    = p.body;
   const modal = document.getElementById('post-modal');
   modal.classList.add('open');
   modal.scrollTop = 0;
@@ -708,23 +752,12 @@ document.querySelectorAll('.blog-tab').forEach(tab => {
   });
 });
 
+/* initial render */
 renderBlog('all');
 
-/* ── CURSOR ── */
-const ring = document.getElementById('c-ring');
-const dot  = document.getElementById('c-dot');
-let mx=0,my=0,rx=0,ry=0;
-document.addEventListener('mousemove', e => {
-  mx = e.clientX; my = e.clientY;
-  dot.style.left = mx + 'px'; dot.style.top = my + 'px';
-});
-document.querySelectorAll('a, button').forEach(el => {
-  el.addEventListener('mouseenter', () => ring.classList.add('expand'));
-  el.addEventListener('mouseleave', () => ring.classList.remove('expand'));
-});
-(function ac() { rx+=(mx-rx)*.1; ry+=(my-ry)*.1; ring.style.left=rx+'px'; ring.style.top=ry+'px'; requestAnimationFrame(ac); })();
-
-/* ── NAV ── */
+/* ══════════════════════════════════════════
+   5. NAV
+══════════════════════════════════════════ */
 window.addEventListener('scroll', () => document.getElementById('nav').classList.toggle('sc', scrollY > 50));
 document.getElementById('mbtn').addEventListener('click', () => {
   const m = document.getElementById('mmenu');
@@ -732,7 +765,9 @@ document.getElementById('mbtn').addEventListener('click', () => {
 });
 document.querySelectorAll('#mmenu a').forEach(a => a.addEventListener('click', () => { document.getElementById('mmenu').style.display = 'none'; }));
 
-/* ── TYPING HERO ── */
+/* ══════════════════════════════════════════
+   6. TYPING HERO
+══════════════════════════════════════════ */
 const phrases = ["KEEP IT SIMPLE.", "TRADE SMART.", "NO NOISE."];
 let pi=0, ci=0, del=false;
 const tel = document.getElementById('tl');
@@ -743,21 +778,13 @@ function type() {
   setTimeout(type, del ? 36 : 68);
 }
 type();
-setInterval(() => { const c = document.getElementById('bc'); c.style.opacity = c.style.opacity === '0' ? '1' : '0'; }, 520);
+setInterval(() => {
+  const c = document.getElementById('bc');
+  if (c) c.style.opacity = c.style.opacity === '0' ? '1' : '0';
+}, 520);
 
-/* ── TRADINGVIEW ── */
-function initChart() {
-  new TradingView.widget({
-    width:"100%", height:500, symbol:"OANDA:XAUUSD",
-    interval:"15", timezone:"Etc/UTC", theme:"dark", style:"1", locale:"en",
-    backgroundColor:"rgba(8,8,8,1)", gridColor:"rgba(255,255,255,0.04)",
-    hide_top_toolbar:false, save_image:false, container_id:"tradingview_chart"
-  });
-}
-
-const tvScript = document.createElement('script');
-tvScript.src = 'https://s3.tradingview.com/tv.js';
-tvScript.onload = initChart;
-document.head.appendChild(tvScript);</script>
-</body>
-</html>
+/* ══════════════════════════════════════════
+   7. TRADINGVIEW
+══════════════════════════════════════════ */
+new TradingView.widget({
+  width:"100%", height:500, symbol:"OANDA:XAUUSD",
