@@ -267,6 +267,9 @@ footer{border-top:1px solid var(--bd);padding:1.75rem 2rem;display:flex;justify-
 </head>
 <body>
 
+<div id="c-ring"></div>
+<div id="c-dot"></div>
+
 <!-- POST MODAL -->
 <div id="post-modal">
   <button class="modal-close" id="modal-close">✕ Close</button>
@@ -766,6 +769,30 @@ new TradingView.widget({
   backgroundColor:"rgba(8,8,8,1)", gridColor:"rgba(255,255,255,0.04)",
   hide_top_toolbar:false, save_image:false, container_id:"tradingview_chart"
 });
+
+const ring = document.getElementById('c-ring');
+const dot = document.getElementById('c-dot');
+
+document.addEventListener('mousemove', (e) => {
+dot.style.left = e.clientX + 'px';
+dot.style.top = e.clientY + 'px';
+
+ring.style.left = e.clientX + 'px';
+ring.style.top = e.clientY + 'px';
+});
+
+document.querySelectorAll('a, button').forEach(el => {
+el.addEventListener('mouseenter', () => {
+ring.classList.add('expand');
+});
+
+el.addEventListener('mouseleave', () => {
+ring.classList.remove('expand');
+});
+});
 </script>
-</body>
+<body>
+
+<div id="c-ring"></div>
+<div id="c-dot"></div>
 </html>
