@@ -4,11 +4,10 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>SwagKong Elite</title>
-<script src="https://cdn.tailwindcss.com"></script>
-<script src="https://s3.tradingview.com/tv.js"></script>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Cinzel:wght@400;600;700&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
 
 <style>
+/* ── RESET & ROOT ── */
 :root{
   --white:#F5F5F5;
   --g1:#B0B0B0;
@@ -30,47 +29,52 @@ body{font-family:'Inter',sans-serif;background:var(--black);color:var(--g1);over
 body::after{content:'';position:fixed;inset:0;z-index:1000;pointer-events:none;
   background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.05'/%3E%3C/svg%3E");opacity:.28;}
 
-/* CURSOR */
+/* ── CURSOR ── */
 #c-ring{position:fixed;width:34px;height:34px;border-radius:50%;border:1px solid rgba(255,255,255,.55);pointer-events:none;z-index:9999;transform:translate(-50%,-50%);mix-blend-mode:difference;transition:width .3s,height .3s;}
 #c-dot{position:fixed;width:5px;height:5px;border-radius:50%;background:#fff;pointer-events:none;z-index:9999;transform:translate(-50%,-50%);mix-blend-mode:difference;}
 #c-ring.expand{width:58px;height:58px;background:rgba(255,255,255,.07);}
 
-/* NAV */
+/* ── NAV ── */
 header{position:fixed;width:100%;z-index:500;transition:background .5s,border-color .5s;border-bottom:1px solid transparent;}
 header.sc{background:rgba(5,5,5,.95);backdrop-filter:blur(20px);border-bottom-color:var(--bd);}
 .n-logo{font-family:'Cinzel',serif;font-size:.88rem;letter-spacing:.4em;color:var(--white);}
 .n-wrap{max-width:1280px;margin:0 auto;padding:1.35rem 2rem;display:flex;justify-content:space-between;align-items:center;}
+nav{display:flex;align-items:center;gap:2rem;}
 nav a{font-size:.6rem;letter-spacing:.22em;text-transform:uppercase;color:var(--g2);text-decoration:none;position:relative;transition:color .3s;}
 nav a::after{content:'';position:absolute;left:0;bottom:-3px;width:0;height:1px;background:var(--white);transition:width .35s cubic-bezier(.4,0,.2,1);}
 nav a:hover{color:var(--white);}
 nav a:hover::after{width:100%;}
-.n-cta{font-size:.6rem;letter-spacing:.22em;text-transform:uppercase;border:1px solid var(--g3);color:var(--g1);padding:.4rem 1.2rem;text-decoration:none;transition:all .3s;}
+.n-cta{border:1px solid var(--g3);padding:.4rem 1.2rem;transition:all .3s;}
 .n-cta:hover{border-color:var(--white);color:var(--white);}
+.n-cta::after{display:none;}
+#nav-desktop{display:flex;}
+#mbtn{display:none;background:none;border:none;cursor:none;color:var(--g1);padding:0;}
+#mmenu{display:none;border-top:1px solid var(--bd);background:rgba(5,5,5,.97);padding:1.5rem 2rem;}
+#mmenu a{display:block;font-size:.68rem;letter-spacing:.2em;text-transform:uppercase;color:var(--g2);text-decoration:none;padding:.7rem 0;border-bottom:1px solid var(--bd);}
+#mmenu a:last-child{border-bottom:none;color:var(--white);}
 
-/* HERO */
+/* ── HERO ── */
 #hero{position:relative;height:100vh;display:flex;align-items:center;overflow:hidden;}
 #hero video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:.22;}
 .h-grid{position:absolute;inset:0;
   background-image:linear-gradient(rgba(255,255,255,.028) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.028) 1px,transparent 1px);
   background-size:85px 85px;
+  -webkit-mask-image:radial-gradient(ellipse 85% 85% at 50% 50%,black,transparent);
   mask-image:radial-gradient(ellipse 85% 85% at 50% 50%,black,transparent);
   animation:gPulse 6s ease-in-out infinite;}
 @keyframes gPulse{0%,100%{opacity:.4;}50%{opacity:.9;}}
 .h-vig{position:absolute;inset:0;background:radial-gradient(ellipse 70% 80% at 50% 50%,transparent,rgba(5,5,5,.9) 80%);}
 .h-bot{position:absolute;bottom:0;left:0;right:0;height:200px;background:linear-gradient(transparent,var(--black));}
 .h-sline{position:absolute;top:50%;width:1px;height:38vh;background:linear-gradient(to bottom,transparent,rgba(255,255,255,.13),transparent);transform:translateY(-50%);animation:sfade 3.5s ease-in-out infinite;}
-.h-sline.l{left:5%;}
-.h-sline.r{right:5%;}
+.h-sline.l{left:5%;}.h-sline.r{right:5%;}
 @keyframes sfade{0%,100%{opacity:.2;}50%{opacity:.7;}}
 .h-corner{position:absolute;width:18px;height:18px;}
 .h-corner::before,.h-corner::after{content:'';position:absolute;background:rgba(255,255,255,.22);}
 .h-corner::before{width:1px;height:100%;}
 .h-corner::after{width:100%;height:1px;}
-.h-corner.tl{top:18%;left:7%;}
-.h-corner.tr{top:18%;right:7%;transform:scaleX(-1);}
-.h-corner.bl{bottom:18%;left:7%;transform:scaleY(-1);}
-.h-corner.br{bottom:18%;right:7%;transform:scale(-1);}
-
+.h-corner.tl{top:18%;left:7%;}.h-corner.tr{top:18%;right:7%;transform:scaleX(-1);}
+.h-corner.bl{bottom:18%;left:7%;transform:scaleY(-1);}.h-corner.br{bottom:18%;right:7%;transform:scale(-1);}
+.h-content{position:relative;z-index:10;max-width:1280px;margin:0 auto;padding:0 2rem;width:100%;}
 .h-tag{font-size:.57rem;letter-spacing:.35em;text-transform:uppercase;color:var(--g2);display:flex;align-items:center;gap:.7rem;margin-bottom:1.75rem;opacity:0;animation:fup .8s .35s forwards;}
 .h-tag::before{content:'';width:28px;height:1px;background:rgba(255,255,255,.28);}
 .h-title{font-family:'Cinzel',serif;font-size:clamp(2.6rem,7.5vw,7rem);font-weight:400;line-height:1;letter-spacing:.04em;color:var(--white);opacity:0;animation:fup .9s .5s forwards;}
@@ -82,14 +86,13 @@ nav a:hover::after{width:100%;}
 .h-cta span{position:relative;z-index:1;transition:color .45s;}
 .h-cta:hover span{color:var(--black);}
 @keyframes fup{from{opacity:0;transform:translateY(28px);}to{opacity:1;transform:translateY(0);}}
-
 .h-scroll{position:absolute;bottom:2rem;left:50%;transform:translateX(-50%);display:flex;flex-direction:column;align-items:center;gap:.5rem;opacity:0;animation:fup .9s 1.2s forwards;}
 .h-scroll span{font-size:.49rem;letter-spacing:.3em;text-transform:uppercase;color:var(--g2);}
 .h-sbar{width:1px;height:52px;overflow:hidden;background:rgba(255,255,255,.07);}
 .h-sbar::after{content:'';display:block;width:100%;height:100%;background:linear-gradient(to bottom,transparent,var(--white),transparent);animation:sbanim 2s ease-in-out infinite;}
 @keyframes sbanim{0%{transform:translateY(-100%);}100%{transform:translateY(100%);}}
 
-/* STATS */
+/* ── STATS ── */
 .stats-bar{border-top:1px solid var(--bd);border-bottom:1px solid var(--bd);background:var(--g4);}
 .st-grid{max-width:1280px;margin:0 auto;display:grid;grid-template-columns:repeat(4,1fr);}
 .st-item{border-right:1px solid var(--bd);padding:2rem 1.5rem;text-align:center;position:relative;overflow:hidden;transition:background .4s;}
@@ -99,7 +102,7 @@ nav a:hover::after{width:100%;}
 .st-n{font-family:'Cinzel',serif;font-size:2rem;color:var(--white);letter-spacing:.06em;}
 .st-l{font-size:.52rem;letter-spacing:.22em;text-transform:uppercase;color:var(--g2);margin-top:.4rem;}
 
-/* MARQUEE */
+/* ── MARQUEE ── */
 .mq-wrap{overflow:hidden;border-bottom:1px solid var(--bd);background:var(--black);}
 .mq-track{display:flex;animation:mq 32s linear infinite;white-space:nowrap;}
 .mq-wrap:hover .mq-track{animation-play-state:paused;}
@@ -107,7 +110,7 @@ nav a:hover::after{width:100%;}
 .mq-d{width:4px;height:4px;background:var(--g2);transform:rotate(45deg);flex-shrink:0;}
 @keyframes mq{0%{transform:translateX(0);}100%{transform:translateX(-50%);}}
 
-/* SECTIONS */
+/* ── SECTION BASE ── */
 section{padding:115px 0;}
 .si{max-width:1280px;margin:0 auto;padding:0 2rem;}
 .s-lbl{font-size:.54rem;letter-spacing:.35em;text-transform:uppercase;color:var(--g2);display:flex;align-items:center;justify-content:center;gap:1.2rem;}
@@ -117,33 +120,12 @@ section{padding:115px 0;}
 
 /* ── ABOUT ── */
 #about{background:var(--black);}
-.about-grid{display:grid;grid-template-columns:1fr 1fr;gap:0;align-items:stretch;margin-top:3.5rem;border:1px solid var(--bd);}
-
-/* Left: character image */
+.about-grid{display:grid;grid-template-columns:1fr 1fr;align-items:stretch;margin-top:3.5rem;border:1px solid var(--bd);}
 .about-img-col{position:relative;overflow:hidden;min-height:520px;background:var(--g4);}
-.about-img-col img{
-  width:100%;height:100%;object-fit:cover;object-position:center top;
-  display:block;
-  filter:grayscale(1) contrast(1.05);
-  transition:transform .7s cubic-bezier(.4,0,.2,1),filter .5s;
-}
+.about-img-col img{width:100%;height:100%;object-fit:cover;object-position:center top;display:block;filter:grayscale(1) contrast(1.05);transition:transform .7s cubic-bezier(.4,0,.2,1),filter .5s;}
 .about-img-col:hover img{transform:scale(1.03);filter:grayscale(.7) contrast(1.1);}
-/* subtle white glow edge */
-.about-img-col::after{
-  content:'';position:absolute;inset:0;
-  background:linear-gradient(to right,transparent 60%,rgba(5,5,5,.9));
-  pointer-events:none;
-}
-/* floating tag on image */
-.img-tag{
-  position:absolute;bottom:2rem;left:2rem;z-index:2;
-  font-family:'Cinzel',serif;font-size:.58rem;letter-spacing:.25em;
-  text-transform:uppercase;color:var(--g1);
-  border:1px solid var(--bd2);padding:.5rem 1rem;
-  background:rgba(5,5,5,.7);backdrop-filter:blur(8px);
-}
-
-/* Right: text content */
+.about-img-col::after{content:'';position:absolute;inset:0;background:linear-gradient(to right,transparent 60%,rgba(5,5,5,.9));pointer-events:none;}
+.img-tag{position:absolute;bottom:2rem;left:2rem;z-index:2;font-family:'Cinzel',serif;font-size:.58rem;letter-spacing:.25em;text-transform:uppercase;color:var(--g1);border:1px solid var(--bd2);padding:.5rem 1rem;background:rgba(5,5,5,.7);backdrop-filter:blur(8px);}
 .about-text-col{padding:3.5rem 3rem;border-left:1px solid var(--bd);display:flex;flex-direction:column;justify-content:center;}
 .a-lead{font-family:'Cormorant Garamond',serif;font-size:clamp(1.05rem,2vw,1.35rem);font-weight:300;line-height:1.9;color:var(--g1);letter-spacing:.02em;}
 .a-lead strong{color:var(--white);font-weight:600;}
@@ -158,63 +140,61 @@ section{padding:115px 0;}
 /* ── FIRMS ── */
 #firms{background:var(--g4);}
 .firms-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;border:1px solid var(--bd);margin-top:3rem;}
-
-/* firm card with subtle white glow */
-.firm-card{
-  border:none;background:var(--g4);
-  padding:2.8rem 1.5rem;
-  display:flex;flex-direction:column;align-items:center;
-  text-decoration:none;
-  position:relative;overflow:hidden;
-  transition:background .35s,transform .35s,box-shadow .4s;
-}
-/* shimmer sweep */
-.firm-card::after{
-  content:'';position:absolute;top:0;left:-100%;width:60%;height:100%;
-  background:linear-gradient(90deg,transparent,rgba(255,255,255,.05),transparent);
-  transform:skewX(-20deg);
-  transition:left .6s cubic-bezier(.4,0,.2,1);
-}
-.firm-card:hover{
-  background:rgba(255,255,255,.04);
-  transform:translateY(-4px);
-  box-shadow:0 0 28px rgba(255,255,255,.07), 0 0 60px rgba(255,255,255,.03);
-}
+.firm-card{background:var(--g4);padding:2.8rem 1.5rem;display:flex;flex-direction:column;align-items:center;text-decoration:none;position:relative;overflow:hidden;transition:background .35s,transform .35s,box-shadow .4s;}
+.firm-card::after{content:'';position:absolute;top:0;left:-100%;width:60%;height:100%;background:linear-gradient(90deg,transparent,rgba(255,255,255,.05),transparent);transform:skewX(-20deg);transition:left .6s cubic-bezier(.4,0,.2,1);}
+.firm-card:hover{background:rgba(255,255,255,.04);transform:translateY(-4px);box-shadow:0 0 28px rgba(255,255,255,.07),0 0 60px rgba(255,255,255,.03);}
 .firm-card:hover::after{left:150%;}
-
-/* logo glow on hover */
-.firm-card img{
-  height:36px;width:auto;
-  filter:grayscale(1) brightness(.5);
-  transition:filter .4s,transform .4s,drop-shadow .4s;
-}
-.firm-card:hover img{
-  filter:grayscale(0) brightness(1.05) drop-shadow(0 0 14px rgba(255,255,255,.55));
-  transform:scale(1.08);
-}
+.firm-card img{height:36px;width:auto;filter:grayscale(1) brightness(.5);transition:filter .4s,transform .4s;}
+.firm-card:hover img{filter:grayscale(0) brightness(1.05) drop-shadow(0 0 14px rgba(255,255,255,.55));transform:scale(1.08);}
 .f-name{font-size:.56rem;letter-spacing:.2em;text-transform:uppercase;color:var(--g2);margin-top:1rem;transition:color .3s;}
 .firm-card:hover .f-name{color:var(--g1);}
 .f-note{font-size:.58rem;letter-spacing:.1em;color:var(--g2);opacity:.4;text-align:center;margin-top:2.5rem;}
 
-/* CHART */
+/* ── CHART ── */
 #chart{background:var(--black);}
 .chart-wrap{border:1px solid var(--bd);overflow:hidden;animation:bdpulse 4s ease-in-out infinite;}
 @keyframes bdpulse{0%,100%{border-color:rgba(255,255,255,.08);}50%{border-color:rgba(255,255,255,.2);}}
 
-/* INSIGHTS */
+/* ── BLOG ── */
 #blog{background:var(--g4);}
-.ins-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;border:1px solid var(--bd);margin-top:3rem;}
-.ins-card{background:var(--g4);padding:2.5rem 2rem;position:relative;overflow:hidden;transition:background .4s;}
-.ins-card::after{content:'';position:absolute;left:0;bottom:0;width:0;height:1px;background:var(--white);transition:width .55s cubic-bezier(.4,0,.2,1);}
-.ins-card:hover{background:rgba(255,255,255,.025);}
-.ins-card:hover::after{width:100%;}
-.i-n{font-size:.56rem;letter-spacing:.28em;text-transform:uppercase;color:var(--g2);}
-.i-t{font-family:'Cinzel',serif;font-size:.9rem;color:var(--white);letter-spacing:.06em;margin-top:.7rem;line-height:1.4;}
-.i-b{font-family:'Cormorant Garamond',serif;font-size:1.05rem;font-weight:300;color:var(--g2);line-height:1.85;margin-top:.7rem;}
-.i-more{font-size:.56rem;letter-spacing:.2em;text-transform:uppercase;color:var(--g2);margin-top:1.5rem;display:flex;align-items:center;gap:.5rem;transform:translateX(-10px);opacity:0;transition:transform .35s,opacity .35s;}
-.ins-card:hover .i-more{transform:translateX(0);opacity:1;}
+.blog-tabs{display:flex;justify-content:center;gap:.5rem;flex-wrap:wrap;margin-top:2rem;}
+.blog-tab{font-family:'Cinzel',serif;font-size:.55rem;letter-spacing:.2em;text-transform:uppercase;color:var(--g2);border:1px solid var(--bd);padding:.4rem 1.1rem;cursor:none;transition:all .3s;background:none;}
+.blog-tab:hover,.blog-tab.active{border-color:var(--white);color:var(--white);}
+.blog-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;border:1px solid var(--bd);margin-top:2.5rem;}
+.blog-card{background:var(--g4);position:relative;overflow:hidden;transition:background .4s;display:flex;flex-direction:column;cursor:none;}
+.blog-card:hover{background:rgba(255,255,255,.025);}
+.blog-card::after{content:'';position:absolute;left:0;bottom:0;width:0;height:1px;background:var(--white);transition:width .55s cubic-bezier(.4,0,.2,1);}
+.blog-card:hover::after{width:100%;}
+.blog-card.featured{grid-column:span 2;}
+.blog-card-body{padding:2rem 2rem 2.2rem;display:flex;flex-direction:column;height:100%;}
+.bc-cat{font-size:.52rem;letter-spacing:.28em;text-transform:uppercase;color:var(--g2);}
+.bc-title{font-family:'Cinzel',serif;font-size:.92rem;color:var(--white);letter-spacing:.05em;margin-top:.6rem;line-height:1.4;}
+.blog-card.featured .bc-title{font-size:1.15rem;}
+.bc-excerpt{font-family:'Cormorant Garamond',serif;font-size:1rem;font-weight:300;color:var(--g2);line-height:1.8;margin-top:.65rem;flex:1;}
+.bc-meta{display:flex;align-items:center;justify-content:space-between;margin-top:1.25rem;padding-top:1rem;border-top:1px solid var(--bd);}
+.bc-date{font-size:.5rem;letter-spacing:.18em;text-transform:uppercase;color:var(--g2);}
+.bc-read{font-size:.5rem;letter-spacing:.18em;text-transform:uppercase;color:var(--g2);display:flex;align-items:center;gap:.4rem;transform:translateX(-6px);opacity:0;transition:transform .3s,opacity .3s;}
+.blog-card:hover .bc-read{transform:translateX(0);opacity:1;}
 
-/* ── SOCIAL / JOIN SECTION ── */
+/* ── POST MODAL ── */
+#post-modal{position:fixed;inset:0;z-index:800;background:rgba(5,5,5,.97);backdrop-filter:blur(16px);overflow-y:auto;opacity:0;pointer-events:none;transition:opacity .4s;}
+#post-modal.open{opacity:1;pointer-events:all;}
+.modal-inner{max-width:760px;margin:0 auto;padding:6rem 2rem 5rem;}
+.modal-close{position:fixed;top:2rem;right:2rem;font-family:'Cinzel',serif;font-size:.58rem;letter-spacing:.22em;text-transform:uppercase;color:var(--g2);background:none;border:1px solid var(--bd);padding:.4rem 1rem;cursor:none;transition:color .3s,border-color .3s;z-index:801;}
+.modal-close:hover{color:var(--white);border-color:var(--white);}
+.modal-cat{font-size:.56rem;letter-spacing:.3em;text-transform:uppercase;color:var(--g2);}
+.modal-title{font-family:'Cinzel',serif;font-size:clamp(1.6rem,4vw,2.8rem);font-weight:400;color:var(--white);letter-spacing:.05em;margin-top:.75rem;line-height:1.15;}
+.modal-meta{font-size:.55rem;letter-spacing:.18em;text-transform:uppercase;color:var(--g2);margin-top:1rem;display:flex;gap:2rem;}
+.modal-divider{width:60px;height:1px;background:linear-gradient(90deg,rgba(255,255,255,.3),transparent);margin:2rem 0;}
+.modal-body{font-family:'Cormorant Garamond',serif;font-size:1.2rem;font-weight:300;line-height:1.95;color:var(--g1);}
+.modal-body h3{font-family:'Cinzel',serif;font-size:1rem;color:var(--white);letter-spacing:.1em;margin:2.25rem 0 .8rem;}
+.modal-body p{margin-bottom:1.25rem;}
+.modal-body strong{color:var(--white);font-weight:600;}
+.modal-body blockquote{border-left:2px solid rgba(255,255,255,.2);padding-left:1.5rem;color:var(--g2);font-style:italic;margin:1.5rem 0;}
+.modal-body ul{margin:1rem 0 1.25rem 1.5rem;}
+.modal-body ul li{margin-bottom:.5rem;}
+
+/* ── SOCIAL / JOIN ── */
 #join{background:var(--black);}
 .j-box{border:1px solid var(--bd);background:var(--g4);padding:5rem 3rem;position:relative;overflow:hidden;text-align:center;}
 .j-box::before{content:'';position:absolute;top:-1px;left:15%;right:15%;height:1px;background:linear-gradient(90deg,transparent,rgba(255,255,255,.2),transparent);}
@@ -226,47 +206,15 @@ section{padding:115px 0;}
 .j-corner.bl{bottom:0;left:0;transform:scaleY(-1);}.j-corner.br{bottom:0;right:0;transform:scale(-1);}
 .j-ttl{font-family:'Cinzel',serif;font-size:clamp(1.8rem,3.5vw,2.8rem);font-weight:400;color:var(--white);letter-spacing:.1em;margin-top:1.2rem;}
 .j-sub{font-family:'Cormorant Garamond',serif;font-size:1.1rem;font-style:italic;font-weight:300;color:var(--g2);margin-top:.65rem;}
-
-/* social icons row */
 .social-row{display:flex;justify-content:center;align-items:center;gap:1.5rem;margin-top:2.8rem;flex-wrap:wrap;}
-.soc-btn{
-  display:flex;align-items:center;gap:.75rem;
-  border:1px solid var(--bd);
-  padding:.75rem 1.6rem;
-  text-decoration:none;
-  color:var(--g1);
-  font-size:.62rem;letter-spacing:.18em;text-transform:uppercase;
-  font-family:'Cinzel',serif;
-  position:relative;overflow:hidden;
-  transition:border-color .4s,color .4s,box-shadow .4s;
-}
-.soc-btn::before{
-  content:'';position:absolute;inset:0;
-  background:var(--white);
-  transform:translateY(101%);
-  transition:transform .4s cubic-bezier(.4,0,.2,1);
-}
-.soc-btn:hover{
-  border-color:var(--white);
-  box-shadow:0 0 24px rgba(255,255,255,.08);
-}
+.soc-btn{display:flex;align-items:center;gap:.75rem;border:1px solid var(--bd);padding:.75rem 1.6rem;text-decoration:none;color:var(--g1);font-size:.62rem;letter-spacing:.18em;text-transform:uppercase;font-family:'Cinzel',serif;position:relative;overflow:hidden;transition:border-color .4s,box-shadow .4s;}
+.soc-btn::before{content:'';position:absolute;inset:0;background:var(--white);transform:translateY(101%);transition:transform .4s cubic-bezier(.4,0,.2,1);}
+.soc-btn:hover{border-color:var(--white);box-shadow:0 0 24px rgba(255,255,255,.08);}
 .soc-btn:hover::before{transform:translateY(0);}
 .soc-btn svg,.soc-btn span{position:relative;z-index:1;transition:color .4s;}
 .soc-btn:hover svg,.soc-btn:hover span{color:var(--black);}
 
-/* email row below */
-.j-row{display:flex;max-width:460px;margin:2rem auto 0;}
-.j-inp{flex:1;background:rgba(255,255,255,.04);border:1px solid var(--bd);border-right:none;color:var(--white);padding:.8rem 1.2rem;font-size:.78rem;letter-spacing:.06em;outline:none;transition:border-color .3s;font-family:'Inter',sans-serif;}
-.j-inp::placeholder{color:var(--g2);}
-.j-inp:focus{border-color:rgba(255,255,255,.25);}
-.j-btn{background:var(--white);color:var(--black);border:none;padding:.8rem 2rem;font-family:'Cinzel',serif;font-size:.62rem;letter-spacing:.2em;text-transform:uppercase;cursor:none;transition:background .3s,box-shadow .3s;white-space:nowrap;}
-.j-btn:hover{background:#ddd;box-shadow:0 0 35px rgba(255,255,255,.1);}
-.j-note{font-size:.56rem;letter-spacing:.12em;color:var(--g2);opacity:.4;margin-top:1.2rem;}
-.or-divider{display:flex;align-items:center;gap:1rem;max-width:300px;margin:2rem auto 0;}
-.or-divider::before,.or-divider::after{content:'';flex:1;height:1px;background:var(--bd);}
-.or-divider span{font-size:.55rem;letter-spacing:.2em;text-transform:uppercase;color:var(--g2);}
-
-/* CONTACT */
+/* ── CONTACT ── */
 #contact{background:var(--black);}
 .c-lnk{display:inline-flex;align-items:center;gap:.9rem;border:1px solid var(--bd);padding:.88rem 2.4rem;font-size:.63rem;letter-spacing:.25em;text-transform:uppercase;color:var(--g1);text-decoration:none;position:relative;overflow:hidden;transition:border-color .4s;}
 .c-lnk::before{content:'';position:absolute;inset:0;background:var(--white);transform:scaleX(0);transform-origin:left;transition:transform .45s cubic-bezier(.4,0,.2,1);}
@@ -275,14 +223,14 @@ section{padding:115px 0;}
 .c-lnk span{position:relative;z-index:1;transition:color .45s;}
 .c-lnk:hover span{color:var(--black);}
 
-/* FOOTER */
+/* ── FOOTER ── */
 footer{border-top:1px solid var(--bd);padding:1.75rem 2rem;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:1rem;}
 .f-logo{font-family:'Cinzel',serif;font-size:.68rem;letter-spacing:.3em;color:var(--g2);}
 .f-copy{font-size:.56rem;letter-spacing:.14em;color:var(--g2);opacity:.45;}
 .f-links a{font-size:.56rem;letter-spacing:.14em;color:var(--g2);opacity:.45;text-decoration:none;margin-left:1.5rem;transition:opacity .3s;}
 .f-links a:hover{opacity:1;}
 
-/* SCROLL REVEAL */
+/* ── SCROLL REVEAL ── */
 .sr{opacity:0;transform:translateY(38px);transition:opacity .9s cubic-bezier(.16,1,.3,1),transform .9s cubic-bezier(.16,1,.3,1);}
 .sr.in{opacity:1;transform:translateY(0);}
 .sr-l{opacity:0;transform:translateX(-38px);transition:opacity .9s cubic-bezier(.16,1,.3,1),transform .9s cubic-bezier(.16,1,.3,1);}
@@ -293,41 +241,59 @@ footer{border-top:1px solid var(--bd);padding:1.75rem 2rem;display:flex;justify-
 .d4{transition-delay:.32s;}.d5{transition-delay:.4s;}.d6{transition-delay:.48s;}
 .d7{transition-delay:.56s;}.d8{transition-delay:.64s;}
 
+/* ── RESPONSIVE ── */
 @media(max-width:900px){
-  .about-grid{grid-template-columns:1fr!important;}
+  #nav-desktop{display:none;}
+  #mbtn{display:block;}
+  .about-grid{grid-template-columns:1fr;}
   .about-img-col{min-height:320px;}
   .about-img-col::after{background:linear-gradient(to bottom,transparent 60%,rgba(5,5,5,.9));}
-  .firms-grid{grid-template-columns:repeat(2,1fr)!important;}
-  .ins-grid{grid-template-columns:1fr!important;}
+  .firms-grid{grid-template-columns:repeat(2,1fr);}
+  .blog-grid{grid-template-columns:1fr;}
+  .blog-card.featured{grid-column:span 1;}
+  .st-grid{grid-template-columns:repeat(2,1fr);}
 }
 @media(max-width:640px){
-  .st-grid{grid-template-columns:repeat(2,1fr)!important;}
-  .j-box{padding:3rem 1.5rem;}
   .h-title{font-size:2.5rem;}
   footer{justify-content:center;text-align:center;}
   .f-links{width:100%;text-align:center;}
   .about-text-col{padding:2.5rem 1.5rem;}
   .soc-btn{padding:.65rem 1.1rem;}
+  .j-box{padding:3rem 1.5rem;}
+  .modal-inner{padding:5rem 1.25rem 4rem;}
 }
 </style>
 </head>
 <body>
 
+<!-- ✅ CURSOR ELEMENTS (this was the missing fix) -->
 <div id="c-ring"></div>
 <div id="c-dot"></div>
+
+<!-- POST MODAL -->
+<div id="post-modal">
+  <button class="modal-close" id="modal-close">✕ Close</button>
+  <div class="modal-inner">
+    <div class="modal-cat" id="m-cat"></div>
+    <div class="modal-title" id="m-title"></div>
+    <div class="modal-meta"><span id="m-date"></span><span id="m-read"></span></div>
+    <div class="modal-divider"></div>
+    <div class="modal-body" id="m-body"></div>
+  </div>
+</div>
 
 <!-- NAV -->
 <header id="nav">
   <div class="n-wrap">
     <div class="n-logo">SWAGKONG</div>
-    <nav class="hidden md:flex items-center gap-8">
+    <nav id="nav-desktop">
       <a href="#about">About</a>
       <a href="#firms">Firms</a>
       <a href="#chart">Live</a>
-      <a href="#blog">Insights</a>
+      <a href="#blog">Blog</a>
       <a href="#join" class="n-cta">Follow</a>
     </nav>
-    <button id="mbtn" class="md:hidden" style="background:none;border:none;cursor:none;color:var(--g1);" aria-label="Menu">
+    <button id="mbtn" aria-label="Menu">
       <svg width="22" height="14" viewBox="0 0 22 14" fill="none">
         <line x1="0" y1="1" x2="22" y2="1" stroke="currentColor" stroke-width="1.2"/>
         <line x1="4" y1="7" x2="22" y2="7" stroke="currentColor" stroke-width="1.2"/>
@@ -335,39 +301,31 @@ footer{border-top:1px solid var(--bd);padding:1.75rem 2rem;display:flex;justify-
       </svg>
     </button>
   </div>
-  <div id="mmenu" class="hidden md:hidden" style="border-top:1px solid var(--bd);background:rgba(5,5,5,.97);padding:1.5rem 2rem;">
-    <a href="#about" style="display:block;font-size:.68rem;letter-spacing:.2em;text-transform:uppercase;color:var(--g2);text-decoration:none;padding:.7rem 0;border-bottom:1px solid var(--bd);">About</a>
-    <a href="#firms" style="display:block;font-size:.68rem;letter-spacing:.2em;text-transform:uppercase;color:var(--g2);text-decoration:none;padding:.7rem 0;border-bottom:1px solid var(--bd);">Firms</a>
-    <a href="#chart" style="display:block;font-size:.68rem;letter-spacing:.2em;text-transform:uppercase;color:var(--g2);text-decoration:none;padding:.7rem 0;border-bottom:1px solid var(--bd);">Live</a>
-    <a href="#blog" style="display:block;font-size:.68rem;letter-spacing:.2em;text-transform:uppercase;color:var(--g2);text-decoration:none;padding:.7rem 0;border-bottom:1px solid var(--bd);">Insights</a>
-    <a href="#join" style="display:block;font-size:.68rem;letter-spacing:.2em;text-transform:uppercase;color:var(--white);text-decoration:none;padding:.7rem 0;">Follow</a>
+  <div id="mmenu">
+    <a href="#about">About</a>
+    <a href="#firms">Firms</a>
+    <a href="#chart">Live</a>
+    <a href="#blog">Blog</a>
+    <a href="#join">Follow</a>
   </div>
 </header>
 
 <!-- HERO -->
 <section id="hero">
-  <video autoplay muted loop playsinline>
-    <source src="hero.mp4" type="video/mp4">
-  </video>
+  <video autoplay muted loop playsinline><source src="hero.mp4" type="video/mp4"></video>
   <div class="h-grid"></div>
   <div class="h-vig"></div>
   <div class="h-bot"></div>
-  <div class="h-sline l"></div>
-  <div class="h-sline r"></div>
+  <div class="h-sline l"></div><div class="h-sline r"></div>
   <div class="h-corner tl"></div><div class="h-corner tr"></div>
   <div class="h-corner bl"></div><div class="h-corner br"></div>
-
-  <div style="position:relative;z-index:10;max-width:1280px;margin:0 auto;padding:0 2rem;width:100%;">
+  <div class="h-content">
     <div class="h-tag">Est. 2014 — Elite Trading</div>
     <h1 class="h-title"><span id="tl"></span><span id="bc" style="color:var(--white)">|</span></h1>
     <p class="h-sub">Execution. Discipline. <em style="color:var(--g1)">Real experience.</em></p>
     <a href="#join" class="h-cta"><span>Follow SwagKong</span><span>→</span></a>
   </div>
-
-  <div class="h-scroll">
-    <div class="h-sbar"></div>
-    <span>Scroll</span>
-  </div>
+  <div class="h-scroll"><div class="h-sbar"></div><span>Scroll</span></div>
 </section>
 
 <!-- STATS -->
@@ -404,15 +362,11 @@ footer{border-top:1px solid var(--bd);padding:1.75rem 2rem;display:flex;justify-
 <section id="about">
   <div class="si">
     <div class="s-lbl sr">About</div>
-
     <div class="about-grid sr">
-      <!-- LEFT: character image -->
       <div class="about-img-col sr-l">
         <img src="about.png" alt="SwagKong">
         <div class="img-tag">SwagKong — Est. 2014</div>
       </div>
-
-      <!-- RIGHT: text -->
       <div class="about-text-col sr-r">
         <h2 style="font-family:'Cinzel',serif;font-size:clamp(1.8rem,3.5vw,3rem);font-weight:400;color:var(--white);letter-spacing:.05em;line-height:1.06;">
           The Edge Is Not<br><em style="font-family:'Cormorant Garamond',serif;font-style:italic;font-weight:300;color:var(--g1);">a Secret</em>
@@ -422,7 +376,6 @@ footer{border-top:1px solid var(--bd);padding:1.75rem 2rem;display:flex;justify-
           Built from <strong>real market experience</strong> since 2014. No theory, no gurus, no noise.<br><br>
           SwagKong Elite exists to share what actually works: the mindset, the setups, and the discipline that separates consistent traders from the rest.
         </p>
-
         <div style="display:flex;flex-direction:column;gap:.8rem;margin-top:2rem;">
           <div class="pillar d1"><div class="p-n">01</div><div class="p-t">SIMPLICITY</div><div class="p-b">One edge, executed with precision. Complex systems collapse under pressure.</div></div>
           <div class="pillar d2"><div class="p-n">02</div><div class="p-t">DISCIPLINE</div><div class="p-b">Rules only work when you follow them live. Process over emotion, always.</div></div>
@@ -439,38 +392,21 @@ footer{border-top:1px solid var(--bd);padding:1.75rem 2rem;display:flex;justify-
     <div class="s-lbl sr">Trusted Experience</div>
     <h2 class="s-ttl sr d1">Firms I've <em>Personally</em> Traded With</h2>
     <p class="sr d2" style="text-align:center;font-family:'Cormorant Garamond',serif;font-size:1.05rem;font-style:italic;color:var(--g2);margin-top:.4rem;">Curated, not sponsored. Real experience only.</p>
-
     <div class="firms-grid">
-      <a href="https://superfunded.com/?aff=50" target="_blank" rel="noopener" class="firm-card sr d1">
-        <img src="superfunded.png" alt="SuperFunded"><div class="f-name">SuperFunded</div>
-      </a>
-      <a href="https://pipfarm.com/?ref=swagkong" target="_blank" rel="noopener" class="firm-card sr d2">
-        <img src="pipfarm.png" alt="PipFarm"><div class="f-name">PipFarm</div>
-      </a>
-      <a href="https://www.hyrotrader.com/?coupon=swagkong" target="_blank" rel="noopener" class="firm-card sr d3">
-        <img src="hyro.png" alt="HyroTrader"><div class="f-name">HyroTrader</div>
-      </a>
-      <a href="https://t.co/XPRI1gzuNB" target="_blank" rel="noopener" class="firm-card sr d4">
-        <img src="8cap.png" alt="8CapChallenge"><div class="f-name">8CapChallenge</div>
-      </a>
-      <a href="https://checkout.bemfunding.com/?ref=SwagKong" target="_blank" rel="noopener" class="firm-card sr d5">
-        <img src="bemfunding.png" alt="BemFunding"><div class="f-name">BemFunding</div>
-      </a>
-      <a href="https://fundedtradermarkets.com/ref/swagkong" target="_blank" rel="noopener" class="firm-card sr d6">
-        <img src="ftm.png" alt="Funded Trader Markets"><div class="f-name">Funded Trader Markets</div>
-      </a>
-      <a href="https://go.monetafunded.com/visit/?bta=35301&brand=monetafunded" target="_blank" rel="noopener" class="firm-card sr d7">
-        <img src="moneta.png" alt="Moneta Funded"><div class="f-name">Moneta Funded</div>
-      </a>
-      <a href="https://partners.dnafunded.com/click?campaign_id=1&ref_id=751" target="_blank" rel="noopener" class="firm-card sr d8">
-        <img src="dna.png" alt="DNAFunded"><div class="f-name">DNAFunded</div>
-      </a>
+      <a href="https://superfunded.com/?aff=50" target="_blank" rel="noopener" class="firm-card sr d1"><img src="superfunded.png" alt="SuperFunded"><div class="f-name">SuperFunded</div></a>
+      <a href="https://pipfarm.com/?ref=swagkong" target="_blank" rel="noopener" class="firm-card sr d2"><img src="pipfarm.png" alt="PipFarm"><div class="f-name">PipFarm</div></a>
+      <a href="https://www.hyrotrader.com/?coupon=swagkong" target="_blank" rel="noopener" class="firm-card sr d3"><img src="hyro.png" alt="HyroTrader"><div class="f-name">HyroTrader</div></a>
+      <a href="https://t.co/XPRI1gzuNB" target="_blank" rel="noopener" class="firm-card sr d4"><img src="8cap.png" alt="8CapChallenge"><div class="f-name">8CapChallenge</div></a>
+      <a href="https://checkout.bemfunding.com/?ref=SwagKong" target="_blank" rel="noopener" class="firm-card sr d5"><img src="bemfunding.png" alt="BemFunding"><div class="f-name">BemFunding</div></a>
+      <a href="https://fundedtradermarkets.com/ref/swagkong" target="_blank" rel="noopener" class="firm-card sr d6"><img src="ftm.png" alt="Funded Trader Markets"><div class="f-name">Funded Trader Markets</div></a>
+      <a href="https://go.monetafunded.com/visit/?bta=35301&brand=monetafunded" target="_blank" rel="noopener" class="firm-card sr d7"><img src="moneta.png" alt="Moneta Funded"><div class="f-name">Moneta Funded</div></a>
+      <a href="https://partners.dnafunded.com/click?campaign_id=1&ref_id=751" target="_blank" rel="noopener" class="firm-card sr d8"><img src="dna.png" alt="DNAFunded"><div class="f-name">DNAFunded</div></a>
     </div>
     <p class="f-note sr">* Some links are affiliate links — listed for full transparency. I only include firms I've personally traded with.</p>
   </div>
 </section>
 
-<!-- LIVE CHART -->
+<!-- CHART -->
 <section id="chart">
   <div class="si">
     <div class="s-lbl sr">Live Market</div>
@@ -480,89 +416,50 @@ footer{border-top:1px solid var(--bd);padding:1.75rem 2rem;display:flex;justify-
   </div>
 </section>
 
-<!-- INSIGHTS -->
+<!-- BLOG -->
 <section id="blog">
   <div class="si">
-    <div class="s-lbl sr">Insights</div>
-    <h2 class="s-ttl sr d1">What <em>Actually Works</em></h2>
-    <div class="ins-grid">
-      <div class="ins-card sr d1">
-        <div class="i-n">01 — Psychology</div>
-        <div class="i-t">The Mind is Your Biggest Risk</div>
-        <div class="i-b">Fear and greed aren't abstract — they show up in your trade management in real time. Learn to recognize and neutralize them.</div>
-        <div class="i-more">Read More →</div>
-      </div>
-      <div class="ins-card sr d2">
-        <div class="i-n">02 — Prop Firms</div>
-        <div class="i-t">Choosing the Right Firm for Your Style</div>
-        <div class="i-b">Not all prop firms are equal. Drawdown rules, payout structures, scaling plans — here's what to evaluate before you fund.</div>
-        <div class="i-more">Read More →</div>
-      </div>
-      <div class="ins-card sr d3">
-        <div class="i-n">03 — Risk</div>
-        <div class="i-t">Risk Management Is the Strategy</div>
-        <div class="i-b">Most traders focus on entries. The elite focus on exits and position sizing. An edge without risk control is just volatility.</div>
-        <div class="i-more">Read More →</div>
-      </div>
+    <div class="s-lbl sr">Blog</div>
+    <h2 class="s-ttl sr d1">From the <em>Field</em></h2>
+    <p class="sr d2" style="text-align:center;font-family:'Cormorant Garamond',serif;font-size:1.05rem;font-style:italic;color:var(--g2);margin-top:.4rem;">Real experiences. Honest takes. No filter.</p>
+    <div class="blog-tabs sr d3">
+      <button class="blog-tab active" data-filter="all">All</button>
+      <button class="blog-tab" data-filter="prop-firms">Prop Firms</button>
+      <button class="blog-tab" data-filter="psychology">Psychology</button>
+      <button class="blog-tab" data-filter="risk">Risk</button>
+      <button class="blog-tab" data-filter="setups">Setups</button>
     </div>
+    <div class="blog-grid sr d4" id="blog-grid"></div>
   </div>
 </section>
 
-<!-- FOLLOW / SOCIAL -->
+<!-- SOCIAL -->
 <section id="join">
   <div class="si">
     <div class="j-box sr">
       <div class="j-corner tl"></div><div class="j-corner tr"></div>
       <div class="j-corner bl"></div><div class="j-corner br"></div>
-
       <div class="s-lbl" style="justify-content:center;">Follow</div>
       <div class="j-ttl">Join The Elite</div>
       <div class="j-sub">Follow for daily insights, setups & the mindset that actually works.</div>
-
-      <!-- SOCIAL BUTTONS -->
       <div class="social-row">
-
-        <!-- Instagram -->
         <a href="https://www.instagram.com/hello.swagkong/" target="_blank" rel="noopener" class="soc-btn">
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-            <rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/>
-          </svg>
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
           <span>Instagram</span>
         </a>
-
-        <!-- Twitter / X -->
         <a href="https://x.com/HelloSwagkong" target="_blank" rel="noopener" class="soc-btn">
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
-            <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
-          </svg>
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
           <span>Twitter / X</span>
         </a>
-
-        <!-- TikTok -->
         <a href="https://www.tiktok.com/@swagkong_" target="_blank" rel="noopener" class="soc-btn">
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
-            <path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-2.88 2.5 2.89 2.89 0 0 1-2.89-2.89 2.89 2.89 0 0 1 2.89-2.89c.28 0 .54.04.79.1V9.01a6.33 6.33 0 0 0-.79-.05 6.34 6.34 0 0 0-6.34 6.34 6.34 6.34 0 0 0 6.34 6.34 6.34 6.34 0 0 0 6.33-6.34V8.69a8.18 8.18 0 0 0 4.78 1.52V6.75a4.85 4.85 0 0 1-1.01-.06z"/>
-          </svg>
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-2.88 2.5 2.89 2.89 0 0 1-2.89-2.89 2.89 2.89 0 0 1 2.89-2.89c.28 0 .54.04.79.1V9.01a6.33 6.33 0 0 0-.79-.05 6.34 6.34 0 0 0-6.34 6.34 6.34 6.34 0 0 0 6.34 6.34 6.34 6.34 0 0 0 6.33-6.34V8.69a8.18 8.18 0 0 0 4.78 1.52V6.75a4.85 4.85 0 0 1-1.01-.06z"/></svg>
           <span>TikTok</span>
         </a>
-
-        <!-- YouTube -->
         <a href="https://www.youtube.com/@SwagKongg" target="_blank" rel="noopener" class="soc-btn">
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
-            <path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/>
-          </svg>
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>
           <span>YouTube</span>
         </a>
-
       </div>
-
-      <!-- OR divider + email -->
-      <div class="or-divider"><span>or get email updates</span></div>
-      <div class="j-row">
-        <input type="email" id="ei" placeholder="Your email address" class="j-inp">
-        <button id="jb" class="j-btn">Get Access</button>
-      </div>
-      <div class="j-note">No spam. Unsubscribe anytime. Your data is never shared.</div>
     </div>
   </div>
 </section>
@@ -574,9 +471,7 @@ footer{border-top:1px solid var(--bd);padding:1.75rem 2rem;display:flex;justify-
     <h2 class="s-ttl sr d1">Open for <em>Partnership</em></h2>
     <p class="sr d2" style="font-family:'Cormorant Garamond',serif;font-size:1.05rem;font-style:italic;color:var(--g2);margin-top:.5rem;">Prop firms, brands, creators — let's build something meaningful.</p>
     <div class="sr d3" style="margin-top:2.5rem;">
-      <a href="mailto:hello.swagkong@gmail.com" class="c-lnk">
-        <span>↗</span><span>hello.swagkong@gmail.com</span>
-      </a>
+      <a href="mailto:hello.swagkong@gmail.com" class="c-lnk"><span>↗</span><span>hello.swagkong@gmail.com</span></a>
     </div>
   </div>
 </section>
@@ -593,56 +488,276 @@ footer{border-top:1px solid var(--bd);padding:1.75rem 2rem;display:flex;justify-
 </footer>
 
 <script>
-/* CURSOR */
-const ring=document.getElementById('c-ring'),dot=document.getElementById('c-dot');
-let mx=0,my=0,rx=0,ry=0;
-document.addEventListener('mousemove',e=>{mx=e.clientX;my=e.clientY;dot.style.left=mx+'px';dot.style.top=my+'px';});
-document.querySelectorAll('a,button').forEach(el=>{
-  el.addEventListener('mouseenter',()=>ring.classList.add('expand'));
-  el.addEventListener('mouseleave',()=>ring.classList.remove('expand'));
+/* ═══════════════════════════════════════════════
+   BLOG DATA
+═══════════════════════════════════════════════ */
+const POSTS = [
+  {
+    id: 1,
+    cat: 'psychology',
+    featured: true,
+    title: 'The Six Mental Traps That Are Silently Killing Your Trading',
+    date: 'Apr 2026',
+    read: '10 min read',
+    excerpt: 'You have a setup. You have a plan. And yet — you still lose. Not because your strategy is broken, but because your mind is working against you. Here are the six psychological traps I have fallen into personally, and exactly how I got out of each one.',
+    body: `
+      <p>I have been trading since 2014. I have blown accounts, passed funded challenges, scaled capital, and sat through drawdowns that made me question everything. What I can tell you with certainty after all of it: <strong>the market did not beat me. My mind did.</strong></p>
+      <p>This is not a motivational post. This is a breakdown of the exact psychological patterns that destroy traders — including me at different points — and the specific things I did to address each one. Keep this somewhere you can come back to.</p>
+      <h3>1. Revenge Trading — The Most Expensive Emotion in Markets</h3>
+      <p>You take a loss. A clean setup, followed the rules, stopped out. Then something shifts. Suddenly you are back at the charts looking for a trade — not because there is a setup, but because you want your money back. That is revenge trading, and it has cost me more than any single bad setup ever has.</p>
+      <blockquote>The market does not know you exist. It cannot owe you anything. Every trade you take to "get back" what you lost is an emotional trade, and emotional trades do not follow your rules.</blockquote>
+      <p>What I do now: <strong>after any loss that hits more than 50% of my daily limit, I close the platform.</strong> Not because I am scared — because I know what my brain wants to do next, and I am not going to let it.</p>
+      <h3>2. FOMO — Fear of Missing Out</h3>
+      <p>Price starts moving hard. You were not in. It keeps going. You jump in late — chasing — because something in your brain says <em>this move is going to run forever and you are going to miss it.</em></p>
+      <p>You almost never catch it. You almost always buy the top or sell the bottom of a move you should have watched from the sidelines.</p>
+      <p>The fix is simple but not easy: <strong>accept that you will miss trades.</strong> Not some trades. A lot of trades. The best traders I know talk more about the trades they did not take than the ones they did. Missing a move costs you nothing. Chasing it costs you real money.</p>
+      <h3>3. Overtrading — Confusing Activity With Progress</h3>
+      <p>There is a version of discipline that looks like sitting on your hands doing nothing for three hours. Most traders cannot tolerate that. They need to be in a trade to feel like they are working. So they force entries. They lower their standards. They trade out of boredom.</p>
+      <blockquote>The market pays you to be right, not to be busy. Quality over quantity is not a cliché — it is the edge.</blockquote>
+      <p>I track my trades by category now: <strong>A setups, B setups, C setups.</strong> A setups are the ones that fully meet my criteria. B setups meet most of them. C setups are the ones I should not have taken. My data shows C setups have a negative expectancy over time. They look like trades. They are not.</p>
+      <h3>4. Anchoring to Your Entry Price</h3>
+      <p>You enter at 2,320. Price moves to 2,310. You do not exit — because in your mind, 2,320 is a number that matters. It does not. <strong>The market has no idea where you got in.</strong> The only question that matters is: if I did not have this position right now, would I enter it at the current price?</p>
+      <p>If the answer is no, you should not be in it. Holding because you want to break even is not a strategy — it is hope. Hope is not an edge.</p>
+      <h3>5. Outcome Bias — Judging Decisions by Results</h3>
+      <p>You followed your plan perfectly. The trade lost. You start questioning the plan. Meanwhile, you broke every rule on a different trade — and it won. You start thinking the rule-breaking was smart.</p>
+      <p>This is outcome bias, and it slowly corrupts your process. <strong>A good trade is one that followed your rules. A bad trade is one that did not.</strong> The result is separate. Over a large enough sample size, good process produces good results. Over a small sample, anything can happen.</p>
+      <blockquote>Judge your decisions by the quality of the process, never by the outcome of a single trade.</blockquote>
+      <h3>6. Overconfidence After a Win Streak</h3>
+      <p>You have five winners in a row. You start to feel untouchable. You increase position size. You take setups you normally would not. You stop following your checklist because it feels unnecessary — clearly you have figured something out.</p>
+      <p>Then one trade wipes back most of what you made. It always happens this way. Win streaks do not mean your edge got better. They mean variance went your way for a period of time.</p>
+      <p>After any win streak I deliberately do the opposite of what my emotions want: <strong>I keep size exactly the same, I tighten my entry criteria, and I remind myself that I am one bad decision away from giving it all back.</strong></p>
+      <h3>What To Do With All of This</h3>
+      <p>Print this out. Or save it somewhere you will actually see it. Because none of this matters if you only read it once and forget it the next time you are in a losing trade at 2am wondering if you should add to the position.</p>
+      <ul>
+        <li>Log every trade — not just the result, but your emotional state before and after</li>
+        <li>Set a hard daily loss limit and walk away when you hit it, no exceptions</li>
+        <li>Rate every entry as A, B, or C before you take it — if it is C, do not take it</li>
+        <li>Review your trades weekly, looking for patterns in your mistakes, not your wins</li>
+        <li>Ask yourself before every entry: am I trading a setup, or am I trading an emotion?</li>
+      </ul>
+      <p>The market will be there tomorrow. Your job is to make sure your account — and your discipline — is too.</p>
+    `
+  },
+  {
+    id: 2,
+    cat: 'prop-firms',
+    featured: false,
+    title: 'My Honest Review of PipFarm After 6 Months',
+    date: 'Jan 2026',
+    read: '8 min read',
+    excerpt: 'Six months, three funded accounts, and more lessons than I expected. Here is everything I experienced with PipFarm — the good, the frustrating, and what no one tells you.',
+    body: `
+      <p>I started with PipFarm in mid-2025 after hearing about their scaling plan. This is not a sponsored post. This is what actually happened.</p>
+      <h3>The Challenge Phase</h3>
+      <p>The challenge rules are clean. <strong>5% max daily drawdown, 10% overall.</strong> I passed my first challenge in 14 days trading XAU/USD on the 15-minute timeframe.</p>
+      <blockquote>The biggest mistake I see traders make on challenges is treating it like a sprint. It is not. It is a patience test.</blockquote>
+      <h3>Getting Funded</h3>
+      <p>Verification was smooth. Account was live within 48 hours. I scaled to $100K after hitting the profit targets.</p>
+      <h3>Payouts</h3>
+      <p>Three payouts received. All processed within the stated timeframe. No issues. This alone puts PipFarm ahead of most firms.</p>
+      <h3>What I Did Not Like</h3>
+      <p>The news trading restriction caught me once. Always check their rules before major releases.</p>
+      <h3>Final Verdict</h3>
+      <p><strong>Recommended.</strong> If you trade clean and manage your risk, PipFarm is a solid firm to work with.</p>
+    `
+  },
+  {
+    id: 3,
+    cat: 'risk',
+    featured: false,
+    title: 'The Only Risk Management Framework You Need',
+    date: 'Feb 2026',
+    read: '6 min read',
+    excerpt: 'Position sizing, drawdown limits, daily loss rules — simplified into one framework I have used since 2014. No complexity, just results.',
+    body: `
+      <p>Risk management is not complex. People make it complex. Here is what I actually use:</p>
+      <h3>The 1% Rule</h3>
+      <p>I risk <strong>1% of my account per trade.</strong> Always. This removes emotional decision-making from position sizing entirely.</p>
+      <h3>Daily Loss Limit</h3>
+      <p>If I lose 3% in a day, I stop. Log off. Come back tomorrow. This rule has saved my accounts more times than any strategy ever has.</p>
+      <blockquote>The market will always be there tomorrow. Your account might not be if you keep trading after a bad day.</blockquote>
+      <h3>Weekly Review</h3>
+      <p>Every Sunday I review my trades — not to feel good or bad, but to find patterns. Where did I deviate from the plan? This is how you actually improve.</p>
+    `
+  },
+  {
+    id: 4,
+    cat: 'prop-firms',
+    featured: false,
+    title: 'SuperFunded vs HyroTrader: Which One Is Right for You?',
+    date: 'Mar 2026',
+    read: '7 min read',
+    excerpt: 'I have traded with both. Different rules, different vibes, different payout structures. Here is my side-by-side breakdown.',
+    body: `
+      <p>Both firms are solid. But they are not the same.</p>
+      <h3>SuperFunded</h3>
+      <p>Clean interface, fast payouts, more forgiving drawdown rules. <strong>If you are new to prop trading, SuperFunded is where I would start.</strong></p>
+      <h3>HyroTrader</h3>
+      <p>Suits traders who already know their edge. Higher scaling potential, stricter rules. You need consistency — not occasional good trades.</p>
+      <blockquote>Choose your firm based on your current level, not the one you want to be at.</blockquote>
+      <h3>My Pick</h3>
+      <p>Newer funded traders: SuperFunded. Experienced traders who want to scale: HyroTrader. Both have my recommendation.</p>
+    `
+  },
+  {
+    id: 5,
+    cat: 'setups',
+    featured: false,
+    title: 'The XAU/USD 15M Setup I Use Every Week',
+    date: 'Mar 2026',
+    read: '6 min read',
+    excerpt: 'Simple structure, clear rules, consistent results. This is the core of my gold trading approach — nothing fancy, just price and levels.',
+    body: `
+      <p>I trade gold. Specifically XAU/USD on the 15-minute chart. Here is what I look for every session.</p>
+      <h3>The Setup</h3>
+      <p>I wait for price to sweep a liquidity level — a recent high or low — then look for a reversal structure in the opposite direction. <strong>No indicators. Just price.</strong></p>
+      <h3>Entry</h3>
+      <p>Enter on the first confirmed candle after the reversal structure forms. Stop above the sweep. Target is the next significant level.</p>
+      <blockquote>If the setup is not clear, I do not trade. Clarity is non-negotiable.</blockquote>
+      <h3>Session Timing</h3>
+      <p>London open and New York open are where most of my setups occur. Outside those windows, I watch but rarely trade.</p>
+    `
+  },
+  {
+    id: 6,
+    cat: 'psychology',
+    featured: false,
+    title: 'How I Recovered From a 15% Drawdown Without Blowing Up',
+    date: 'Apr 2026',
+    read: '5 min read',
+    excerpt: 'It happens to everyone. The question is not if you will face a drawdown — it is how you handle it. Here is exactly what I did.',
+    body: `
+      <p>Last quarter I hit a 15% drawdown on a personal account. Here is what I did to come back.</p>
+      <h3>Step 1: Stop Trading Immediately</h3>
+      <p>Not after one more trade. Stop. Log off. Take a minimum of three days away from the charts.</p>
+      <h3>Step 2: Review Without Emotion</h3>
+      <p>After the break, I went through every losing trade. <strong>In my case, I had been trading outside my normal session times.</strong> That was the root cause.</p>
+      <blockquote>Drawdowns are rarely random. There is almost always a pattern if you look honestly.</blockquote>
+      <h3>Step 3: Reduce Size</h3>
+      <p>I dropped to 0.5% risk per trade until I had 20 consecutive trades that followed my rules — win or lose.</p>
+      <h3>Step 4: Rebuild Confidence Slowly</h3>
+      <p>Confidence comes from process, not results. Once I was executing cleanly again, the results followed naturally.</p>
+    `
+  }
+];
+
+/* ─────────────────────────────────────────
+   SCROLL REVEAL OBSERVER
+───────────────────────────────────────── */
+const obs = new IntersectionObserver(entries => {
+  entries.forEach(e => {
+    if (e.isIntersecting) { e.target.classList.add('in'); obs.unobserve(e.target); }
+  });
+}, { threshold: 0.08 });
+
+document.querySelectorAll('.sr, .sr-l, .sr-r').forEach(el => obs.observe(el));
+
+/* ── RENDER BLOG ── */
+function renderBlog(filter) {
+  const grid = document.getElementById('blog-grid');
+  const list = filter === 'all' ? POSTS : POSTS.filter(p => p.cat === filter);
+  grid.innerHTML = list.map((p, i) => `
+    <div class="blog-card${p.featured && filter === 'all' ? ' featured' : ''} sr d${Math.min(i + 1, 8)}"
+         data-id="${p.id}" onclick="openPost(${p.id})">
+      <div class="blog-card-body">
+        <div class="bc-cat">${p.cat.replace('-', ' ')}</div>
+        <div class="bc-title">${p.title}</div>
+        <div class="bc-excerpt">${p.excerpt}</div>
+        <div class="bc-meta">
+          <span class="bc-date">${p.date} &nbsp;·&nbsp; ${p.read}</span>
+          <span class="bc-read">Read →</span>
+        </div>
+      </div>
+    </div>
+  `).join('');
+  grid.querySelectorAll('.sr').forEach(el => obs.observe(el));
+  grid.querySelectorAll('.blog-card').forEach(el => {
+    el.addEventListener('mouseenter', () => ring.classList.add('expand'));
+    el.addEventListener('mouseleave', () => ring.classList.remove('expand'));
+  });
+}
+
+/* ── POST MODAL ── */
+function openPost(id) {
+  const p = POSTS.find(x => x.id === id);
+  if (!p) return;
+  document.getElementById('m-cat').textContent = p.cat.replace('-', ' ').toUpperCase();
+  document.getElementById('m-title').textContent = p.title;
+  document.getElementById('m-date').textContent = p.date;
+  document.getElementById('m-read').textContent = p.read;
+  document.getElementById('m-body').innerHTML = p.body;
+  const modal = document.getElementById('post-modal');
+  modal.classList.add('open');
+  modal.scrollTop = 0;
+  document.body.style.overflow = 'hidden';
+}
+function closePost() {
+  document.getElementById('post-modal').classList.remove('open');
+  document.body.style.overflow = '';
+}
+document.getElementById('modal-close').addEventListener('click', closePost);
+document.getElementById('post-modal').addEventListener('click', e => { if (e.target === e.currentTarget) closePost(); });
+document.addEventListener('keydown', e => { if (e.key === 'Escape') closePost(); });
+
+/* ── FILTER TABS ── */
+document.querySelectorAll('.blog-tab').forEach(tab => {
+  tab.addEventListener('click', () => {
+    document.querySelectorAll('.blog-tab').forEach(t => t.classList.remove('active'));
+    tab.classList.add('active');
+    renderBlog(tab.dataset.filter);
+  });
 });
-(function ac(){rx+=(mx-rx)*.1;ry+=(my-ry)*.1;ring.style.left=rx+'px';ring.style.top=ry+'px';requestAnimationFrame(ac);})();
 
-/* NAV SCROLL */
-window.addEventListener('scroll',()=>document.getElementById('nav').classList.toggle('sc',scrollY>50));
-document.getElementById('mbtn').addEventListener('click',()=>document.getElementById('mmenu').classList.toggle('hidden'));
-document.querySelectorAll('#mmenu a').forEach(a=>a.addEventListener('click',()=>document.getElementById('mmenu').classList.add('hidden')));
+renderBlog('all');
 
-/* TYPING */
-const phrases=["KEEP IT SIMPLE.","TRADE SMART.","NO NOISE."];
-let pi=0,ci=0,del=false;
-const tel=document.getElementById('tl');
-function type(){
-  const p=phrases[pi];
-  if(!del){tel.textContent=p.slice(0,++ci);if(ci===p.length){del=true;setTimeout(type,1700);return;}}
-  else{tel.textContent=p.slice(0,--ci);if(ci===0){del=false;pi=(pi+1)%phrases.length;setTimeout(type,300);return;}}
-  setTimeout(type,del?36:68);
+/* ── CURSOR ── */
+const ring = document.getElementById('c-ring');
+const dot  = document.getElementById('c-dot');
+let mx=0,my=0,rx=0,ry=0;
+document.addEventListener('mousemove', e => {
+  mx = e.clientX; my = e.clientY;
+  dot.style.left = mx + 'px'; dot.style.top = my + 'px';
+});
+document.querySelectorAll('a, button').forEach(el => {
+  el.addEventListener('mouseenter', () => ring.classList.add('expand'));
+  el.addEventListener('mouseleave', () => ring.classList.remove('expand'));
+});
+(function ac() { rx+=(mx-rx)*.1; ry+=(my-ry)*.1; ring.style.left=rx+'px'; ring.style.top=ry+'px'; requestAnimationFrame(ac); })();
+
+/* ── NAV ── */
+window.addEventListener('scroll', () => document.getElementById('nav').classList.toggle('sc', scrollY > 50));
+document.getElementById('mbtn').addEventListener('click', () => {
+  const m = document.getElementById('mmenu');
+  m.style.display = m.style.display === 'block' ? 'none' : 'block';
+});
+document.querySelectorAll('#mmenu a').forEach(a => a.addEventListener('click', () => { document.getElementById('mmenu').style.display = 'none'; }));
+
+/* ── TYPING HERO ── */
+const phrases = ["KEEP IT SIMPLE.", "TRADE SMART.", "NO NOISE."];
+let pi=0, ci=0, del=false;
+const tel = document.getElementById('tl');
+function type() {
+  const p = phrases[pi];
+  if (!del) { tel.textContent = p.slice(0, ++ci); if (ci === p.length) { del=true; setTimeout(type, 1700); return; } }
+  else       { tel.textContent = p.slice(0, --ci); if (ci === 0) { del=false; pi=(pi+1)%phrases.length; setTimeout(type, 300); return; } }
+  setTimeout(type, del ? 36 : 68);
 }
 type();
-setInterval(()=>{const c=document.getElementById('bc');c.style.opacity=c.style.opacity==='0'?'1':'0';},520);
+setInterval(() => { const c = document.getElementById('bc'); c.style.opacity = c.style.opacity === '0' ? '1' : '0'; }, 520);
 
-/* SCROLL REVEAL */
-const obs=new IntersectionObserver(entries=>{
-  entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');obs.unobserve(e.target);}});
-},{threshold:.08});
-document.querySelectorAll('.sr,.sr-l,.sr-r').forEach(el=>obs.observe(el));
+/* ── TRADINGVIEW ── */
+function initChart() {
+  new TradingView.widget({
+    width:"100%", height:500, symbol:"OANDA:XAUUSD",
+    interval:"15", timezone:"Etc/UTC", theme:"dark", style:"1", locale:"en",
+    backgroundColor:"rgba(8,8,8,1)", gridColor:"rgba(255,255,255,0.04)",
+    hide_top_toolbar:false, save_image:false, container_id:"tradingview_chart"
+  });
+}
 
-/* EMAIL JOIN */
-document.getElementById('jb').addEventListener('click',()=>{
-  const i=document.getElementById('ei'),b=document.getElementById('jb');
-  if(!i.value||!i.value.includes('@')){i.style.borderColor='rgba(255,80,80,.5)';setTimeout(()=>i.style.borderColor='',2000);return;}
-  b.textContent='WELCOME ✦';b.style.background='var(--g3)';b.style.color='var(--white)';i.disabled=true;
-});
-
-/* TRADINGVIEW */
-new TradingView.widget({
-  width:"100%",height:500,symbol:"OANDA:XAUUSD",
-  interval:"15",timezone:"Etc/UTC",theme:"dark",style:"1",locale:"en",
-  backgroundColor:"rgba(8,8,8,1)",
-  gridColor:"rgba(255,255,255,0.04)",
-  hide_top_toolbar:false,save_image:false,
-  container_id:"tradingview_chart"
-});
-</script>
+const tvScript = document.createElement('script');
+tvScript.src = 'https://s3.tradingview.com/tv.js';
+tvScript.onload = initChart;
+document.head.appendChild(tvScript);</script>
 </body>
 </html>
