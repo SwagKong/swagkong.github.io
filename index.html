@@ -4,26 +4,15 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>SwagKong — Elite Trading</title>
-<meta name="description" content="SwagKong Elite — Real prop firm trading since 2014. Execution, discipline, and the edge that actually works.">
+<meta name="description" content="SwagKong Elite — Real prop firm trading since 2014.">
 <script src="https://s3.tradingview.com/tv.js" defer></script>
 <link href="https://fonts.googleapis.com/css2?family=Sora:wght@300;400;500;600;700;800&family=Cormorant+Garamond:ital,wght@0,300;1,300;1,400&display=swap" rel="stylesheet">
 <style>
-/* ── TOKENS ── */
 :root{
-  --bg:    #080808;
-  --bg2:   #0e0e0e;
-  --bg3:   #141414;
-  --line:  rgba(255,255,255,0.07);
-  --line2: rgba(255,255,255,0.13);
-  --dim:   #333;
-  --mid:   #666;
-  --mist:  #999;
-  --silk:  #ccc;
-  --bright:#e8e8e8;
-  --white: #f5f5f5;
+  --bg:#080808; --bg2:#0e0e0e; --bg3:#141414;
+  --line:rgba(255,255,255,.07); --line2:rgba(255,255,255,.13);
+  --dim:#333; --mid:#666; --mist:#999; --silk:#ccc; --bright:#e8e8e8; --white:#f5f5f5;
   --r:18px;
-  --glass-bg:rgba(255,255,255,0.05);
-  --glass-border:rgba(255,255,255,0.10);
 }
 *,*::before,*::after{margin:0;padding:0;box-sizing:border-box;}
 html{scroll-behavior:smooth;}
@@ -34,43 +23,14 @@ a{text-decoration:none;color:inherit;}
 ::-webkit-scrollbar-track{background:var(--bg);}
 ::-webkit-scrollbar-thumb{background:var(--dim);}
 
-/* grain */
-body::before{content:'';position:fixed;inset:0;z-index:997;pointer-events:none;
-  background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");opacity:.28;}
+/* grain — pointer-events:none so it never blocks anything */
+body::before{content:'';position:fixed;inset:0;z-index:9990;pointer-events:none;
+  background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");opacity:.25;}
 
-/* ── CURSOR ── */
-#cr{position:fixed;z-index:9999;pointer-events:none;width:34px;height:34px;border-radius:50%;border:1px solid rgba(255,255,255,.4);transform:translate(-50%,-50%);mix-blend-mode:difference;transition:width .3s,height .3s;left:-100px;top:-100px;}
-#cd{position:fixed;z-index:9999;pointer-events:none;width:4px;height:4px;border-radius:50%;background:var(--white);transform:translate(-50%,-50%);left:-100px;top:-100px;}
-#cr.big{width:60px;height:60px;background:rgba(255,255,255,.05);}
-
-/* ── GLASS UTIL ── */
-.glass{
-  background:var(--glass-bg);
-  backdrop-filter:blur(22px) saturate(1.5);
-  -webkit-backdrop-filter:blur(22px) saturate(1.5);
-  border:1px solid var(--glass-border);
-  position:relative;overflow:hidden;
-}
-.glass::before{
-  content:'';position:absolute;top:0;left:8%;right:8%;height:1px;
-  background:linear-gradient(90deg,transparent,rgba(255,255,255,.18),transparent);
-  pointer-events:none;
-}
-.glass-glow{
-  box-shadow:
-    0 0 0 1px var(--glass-border),
-    0 8px 40px rgba(255,255,255,.04),
-    0 0 80px rgba(255,255,255,.025),
-    inset 0 1px 0 rgba(255,255,255,.08);
-  transition:box-shadow .5s;
-}
-.glass-glow:hover{
-  box-shadow:
-    0 0 0 1px rgba(255,255,255,.18),
-    0 12px 60px rgba(255,255,255,.08),
-    0 0 140px rgba(255,255,255,.05),
-    inset 0 1px 0 rgba(255,255,255,.14);
-}
+/* cursor */
+#cr{position:fixed;z-index:9999;pointer-events:none;width:34px;height:34px;border-radius:50%;border:1px solid rgba(255,255,255,.35);transform:translate(-50%,-50%);mix-blend-mode:difference;transition:width .3s,height .3s;left:-200px;top:-200px;}
+#cd{position:fixed;z-index:9999;pointer-events:none;width:4px;height:4px;border-radius:50%;background:#fff;transform:translate(-50%,-50%);left:-200px;top:-200px;}
+#cr.big{width:58px;height:58px;background:rgba(255,255,255,.05);}
 
 /* ── NAV ── */
 #nav{position:fixed;top:0;left:0;right:0;z-index:500;padding:1.1rem 0;transition:background .5s,border-color .5s;border-bottom:1px solid transparent;}
@@ -82,7 +42,7 @@ body::before{content:'';position:fixed;inset:0;z-index:997;pointer-events:none;
 .nlinks a::after{content:'';position:absolute;left:0;bottom:-3px;width:0;height:1px;background:var(--white);transition:width .3s;}
 .nlinks a:hover{color:var(--white);}
 .nlinks a:hover::after{width:100%;}
-.ncta{border:1px solid var(--line2)!important;border-radius:100px;padding:.4rem 1.2rem;color:var(--white)!important;transition:background .3s,border-color .3s!important;}
+.ncta{border:1px solid var(--line2)!important;border-radius:100px;padding:.4rem 1.2rem;color:var(--white)!important;}
 .ncta::after{display:none!important;}
 .ncta:hover{background:rgba(255,255,255,.07)!important;border-color:rgba(255,255,255,.22)!important;}
 #nmb{display:none;background:none;border:none;cursor:none;color:var(--mid);padding:0;}
@@ -92,93 +52,76 @@ body::before{content:'';position:fixed;inset:0;z-index:997;pointer-events:none;
 
 /* ── HERO ── */
 #hero{position:relative;min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;overflow:hidden;padding:130px 2rem 100px;}
-#hvid{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:.1;}
-.hfade{position:absolute;bottom:0;left:0;right:0;height:280px;background:linear-gradient(transparent,var(--bg));z-index:1;}
-.hgrid{position:absolute;inset:0;background-image:linear-gradient(rgba(255,255,255,.022) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.022) 1px,transparent 1px);background-size:72px 72px;-webkit-mask-image:radial-gradient(ellipse 80% 80% at 50% 50%,black,transparent);mask-image:radial-gradient(ellipse 80% 80% at 50% 50%,black,transparent);animation:gp 8s ease-in-out infinite;}
-@keyframes gp{0%,100%{opacity:.35;}50%{opacity:.85;}}
-.hwrap{position:relative;z-index:2;max-width:960px;margin:0 auto;}
+#hvid{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:.3;}
+.hero-ov{position:absolute;inset:0;background:rgba(8,8,8,.48);z-index:1;}
+.hfade{position:absolute;bottom:0;left:0;right:0;height:220px;background:linear-gradient(transparent,var(--bg));z-index:2;}
+.hgrid{position:absolute;inset:0;z-index:2;
+  background-image:linear-gradient(rgba(255,255,255,.018) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.018) 1px,transparent 1px);
+  background-size:72px 72px;
+  -webkit-mask-image:radial-gradient(ellipse 80% 80% at 50% 50%,black,transparent);
+  mask-image:radial-gradient(ellipse 80% 80% at 50% 50%,black,transparent);
+  animation:gp 8s ease-in-out infinite;
+  pointer-events:none;}
+@keyframes gp{0%,100%{opacity:.3;}50%{opacity:.7;}}
+.hwrap{position:relative;z-index:10;max-width:960px;margin:0 auto;}
 
-/* pill badge */
+/* badge */
 .hbadge{display:inline-flex;align-items:center;gap:.6rem;background:rgba(255,255,255,.06);border:1px solid var(--line2);border-radius:100px;padding:.35rem 1rem .35rem .6rem;margin-bottom:2.2rem;opacity:0;animation:fu .7s .2s forwards;}
-.hbadge-dot{width:6px;height:6px;border-radius:50%;background:var(--bright);animation:pulse 2s ease-in-out infinite;}
-@keyframes pulse{0%,100%{opacity:1;box-shadow:0 0 0 0 rgba(255,255,255,.3);}50%{opacity:.5;box-shadow:0 0 0 6px transparent;}}
-.hbadge-txt{font-size:.56rem;font-weight:600;letter-spacing:.2em;text-transform:uppercase;color:var(--silk);}
+.hbdot{width:6px;height:6px;border-radius:50%;background:var(--bright);animation:bdpulse 2s ease-in-out infinite;}
+@keyframes bdpulse{0%,100%{opacity:1;}50%{opacity:.45;}}
+.hbtxt{font-size:.56rem;font-weight:600;letter-spacing:.2em;text-transform:uppercase;color:var(--silk);}
 
-/* ── NEON 3D HEADLINE ── */
-.hh1{
-  font-size:clamp(3rem,10vw,9rem);
-  font-weight:800;
-  line-height:.92;
-  letter-spacing:-.03em;
-  opacity:0;
-  animation:fu .9s .35s forwards;
-}
-/* each line */
-.nline{
+/* ── STRIPE GLITCH HEADLINE ── */
+.hh1{font-size:clamp(3rem,10vw,9rem);font-weight:800;line-height:.94;letter-spacing:-.02em;opacity:0;animation:fu .9s .35s forwards;}
+
+/* wrap each word in a span.sw — stripe mask applied there only */
+.sw{
   display:block;
+  position:relative;
   color:#fff;
-  text-shadow:
-    0 0 8px  rgba(255,255,255,.9),
-    0 0 28px rgba(255,255,255,.5),
-    0 0 70px rgba(255,255,255,.2),
-    2px 2px 0 rgba(160,160,160,.3),
-    4px 4px 0 rgba(90,90,90,.2),
-    6px 6px 0 rgba(40,40,40,.15),
-    0px 8px 20px rgba(0,0,0,.7);
-  animation:neonpulse 3.5s ease-in-out infinite;
+  /* horizontal scan-line stripes — like the reference image */
+  -webkit-mask-image:repeating-linear-gradient(to bottom,#000 0px,#000 3px,transparent 3px,transparent 5px);
+  mask-image:repeating-linear-gradient(to bottom,#000 0px,#000 3px,transparent 3px,transparent 5px);
+  /* subtle glow only — not blinding */
+  text-shadow:0 0 5px rgba(255,255,255,.4),0 0 16px rgba(255,255,255,.15);
+  animation:gflicker 5s ease-in-out infinite;
 }
-.nline.italic-dim{
+.sw.dim{
   font-family:'Cormorant Garamond',serif;
-  font-style:italic;
-  font-weight:300;
-  color:var(--mist);
-  font-size:.85em;
-  text-shadow:
-    0 0 6px  rgba(200,200,200,.6),
-    0 0 20px rgba(160,160,160,.3),
-    0 0 50px rgba(120,120,120,.15),
-    2px 2px 0 rgba(80,80,80,.25),
-    4px 4px 0 rgba(40,40,40,.15),
-    0px 6px 14px rgba(0,0,0,.6);
-  animation:neonpulse 3.5s ease-in-out infinite;
-  animation-delay:.5s;
+  font-style:italic;font-weight:300;
+  color:rgba(255,255,255,.5);
+  font-size:.78em;
+  text-shadow:0 0 4px rgba(255,255,255,.25),0 0 12px rgba(255,255,255,.08);
+  animation:gflicker 5s ease-in-out infinite;
+  animation-delay:.7s;
 }
-@keyframes neonpulse{
-  0%,100%{
-    filter:brightness(1);
-    text-shadow:
-      0 0 7px  rgba(255,255,255,.8),
-      0 0 22px rgba(255,255,255,.4),
-      0 0 55px rgba(255,255,255,.15),
-      2px 2px 0 rgba(160,160,160,.28),
-      4px 4px 0 rgba(80,80,80,.18),
-      6px 6px 0 rgba(30,30,30,.12),
-      0px 8px 18px rgba(0,0,0,.65);
-  }
-  50%{
-    filter:brightness(1.12);
-    text-shadow:
-      0 0 12px rgba(255,255,255,1),
-      0 0 40px rgba(255,255,255,.65),
-      0 0 100px rgba(255,255,255,.28),
-      2px 2px 0 rgba(200,200,200,.38),
-      4px 4px 0 rgba(110,110,110,.25),
-      6px 6px 0 rgba(55,55,55,.18),
-      0px 10px 24px rgba(0,0,0,.75);
-  }
+/* subtle on/off glitch — light flicker, not aggressive */
+@keyframes gflicker{
+  0%     {opacity:1;  filter:brightness(1);}
+  7%     {opacity:.82;filter:brightness(.88);}
+  7.2%   {opacity:1;  filter:brightness(1.06);}
+  40%    {opacity:1;  filter:brightness(1);}
+  41.5%  {opacity:.65;filter:brightness(.78);}
+  41.9%  {opacity:1;  filter:brightness(1.1);}
+  42.4%  {opacity:.8; filter:brightness(.9);}
+  42.8%  {opacity:1;  filter:brightness(1);}
+  72%    {opacity:1;  filter:brightness(1);}
+  72.3%  {opacity:.75;filter:brightness(.82);}
+  72.7%  {opacity:1;  filter:brightness(1);}
+  100%   {opacity:1;  filter:brightness(1);}
 }
 
 .hsub{font-size:.88rem;font-weight:300;color:var(--mid);letter-spacing:.06em;line-height:1.8;max-width:500px;margin:1.8rem auto 0;opacity:0;animation:fu .9s .55s forwards;}
 .hacts{display:flex;align-items:center;justify-content:center;gap:1rem;flex-wrap:wrap;margin-top:2.5rem;opacity:0;animation:fu .9s .7s forwards;}
 .btnw{display:inline-flex;align-items:center;gap:.5rem;background:var(--white);color:var(--bg);font-size:.62rem;font-weight:700;letter-spacing:.16em;text-transform:uppercase;padding:.85rem 2.2rem;border-radius:100px;transition:box-shadow .4s,transform .3s;}
-.btnw:hover{box-shadow:0 0 40px rgba(255,255,255,.2);transform:translateY(-2px);}
+.btnw:hover{box-shadow:0 0 36px rgba(255,255,255,.18);transform:translateY(-2px);}
 .btno{display:inline-flex;align-items:center;gap:.5rem;color:var(--mist);font-size:.62rem;font-weight:500;letter-spacing:.16em;text-transform:uppercase;border:1px solid var(--line2);padding:.85rem 2.2rem;border-radius:100px;transition:all .3s;}
 .btno:hover{border-color:rgba(255,255,255,.22);color:var(--white);background:rgba(255,255,255,.04);}
 @keyframes fu{from{opacity:0;transform:translateY(22px);}to{opacity:1;transform:translateY(0);}}
 
-.hscroll{position:absolute;bottom:2rem;left:50%;transform:translateX(-50%);z-index:2;display:flex;flex-direction:column;align-items:center;gap:.4rem;opacity:0;animation:fu .9s 1.2s forwards;}
-.hscroll-line{width:1px;height:44px;background:linear-gradient(to bottom,rgba(255,255,255,.25),transparent);animation:scrolll 2s ease-in-out infinite;}
-@keyframes scrolll{0%{transform:scaleY(0);transform-origin:top;}50%{transform:scaleY(1);transform-origin:top;}51%{transform-origin:bottom;}100%{transform:scaleY(0);transform-origin:bottom;}}
+.hscroll{position:absolute;bottom:2rem;left:50%;transform:translateX(-50%);z-index:10;display:flex;flex-direction:column;align-items:center;gap:.4rem;opacity:0;animation:fu .9s 1.2s forwards;}
+.hscroll-line{width:1px;height:44px;background:linear-gradient(to bottom,rgba(255,255,255,.22),transparent);animation:scrl 2s ease-in-out infinite;}
+@keyframes scrl{0%{transform:scaleY(0);transform-origin:top;}50%{transform:scaleY(1);transform-origin:top;}51%{transform-origin:bottom;}100%{transform:scaleY(0);transform-origin:bottom;}}
 .hscroll-txt{font-size:.44rem;letter-spacing:.28em;text-transform:uppercase;color:var(--dim);}
 
 /* ── TICKER ── */
@@ -199,7 +142,7 @@ body::before{content:'';position:fixed;inset:0;z-index:997;pointer-events:none;
 .statl{font-size:.5rem;font-weight:500;letter-spacing:.2em;text-transform:uppercase;color:var(--mid);margin-top:.5rem;}
 
 /* ── SECTIONS ── */
-section{padding:120px 0;position:relative;}
+section{padding:120px 0;}
 .wrap{max-width:1280px;margin:0 auto;padding:0 2rem;}
 .sec-pill{display:inline-flex;align-items:center;font-size:.5rem;font-weight:600;letter-spacing:.25em;text-transform:uppercase;color:var(--mid);border:1px solid var(--line);border-radius:100px;padding:.28rem .9rem;margin-bottom:1.2rem;}
 .sec-h{font-size:clamp(2rem,5vw,4rem);font-weight:800;color:var(--white);line-height:1.0;letter-spacing:-.02em;}
@@ -210,7 +153,7 @@ section{padding:120px 0;position:relative;}
 
 /* ── ABOUT ── */
 #about{background:var(--bg);}
-.feat-row{display:grid;grid-template-columns:1fr 1fr;gap:0;align-items:stretch;border:1px solid var(--line);border-radius:var(--r);overflow:hidden;margin-top:1.5rem;}
+.feat-row{display:grid;grid-template-columns:1fr 1fr;align-items:stretch;border:1px solid var(--line);border-radius:var(--r);overflow:hidden;margin-top:1.5rem;}
 .feat-row.flip{direction:rtl;}
 .feat-row.flip>*{direction:ltr;}
 .feat-img{position:relative;min-height:460px;overflow:hidden;background:var(--bg3);}
@@ -230,94 +173,40 @@ section{padding:120px 0;position:relative;}
 .pillar-row{display:flex;flex-direction:column;gap:.75rem;margin-top:1.5rem;}
 .pillar-item{padding:1.2rem 1.4rem;border:1px solid var(--line);border-radius:12px;display:flex;gap:1.2rem;align-items:flex-start;transition:border-color .4s,background .4s;}
 .pillar-item:hover{border-color:var(--line2);background:rgba(255,255,255,.02);}
-.pillar-num{font-size:.65rem;font-weight:800;color:var(--dim);flex-shrink:0;margin-top:.1rem;}
+.pillar-num{font-size:.65rem;font-weight:800;color:var(--dim);flex-shrink:0;}
 .pillar-t{font-size:.6rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--bright);}
 .pillar-b{font-size:.76rem;font-weight:300;color:var(--mid);margin-top:.3rem;line-height:1.65;}
 
 /* ── FIRMS — GLASS BENTO ── */
 #firms{background:var(--bg2);}
-
-/* bento container */
-.firms-bento{
-  display:grid;
-  grid-template-columns:repeat(4,1fr);
-  grid-template-rows:auto auto;
-  gap:.75rem;
-  margin-top:3.5rem;
-}
-
-/* every firm card */
+.firms-bento{display:grid;grid-template-columns:repeat(4,1fr);gap:.75rem;margin-top:3.5rem;}
 .firm-card{
   border-radius:var(--r);
   padding:2.8rem 1.5rem;
   display:flex;flex-direction:column;align-items:center;
-  position:relative;overflow:hidden;
-  text-decoration:none;
-  /* glass */
-  background:rgba(255,255,255,0.045);
+  position:relative;overflow:hidden;text-decoration:none;
+  background:rgba(255,255,255,.045);
   backdrop-filter:blur(20px) saturate(1.4);
   -webkit-backdrop-filter:blur(20px) saturate(1.4);
-  border:1px solid rgba(255,255,255,0.09);
-  /* glow */
-  box-shadow:
-    0 0 0 1px rgba(255,255,255,.05),
-    0 8px 30px rgba(255,255,255,.03),
-    0 0 60px rgba(255,255,255,.02),
-    inset 0 1px 0 rgba(255,255,255,.08);
-  transition:transform .4s cubic-bezier(.4,0,.2,1), box-shadow .4s;
+  border:1px solid rgba(255,255,255,.09);
+  box-shadow:0 0 0 1px rgba(255,255,255,.04),0 8px 30px rgba(255,255,255,.025),inset 0 1px 0 rgba(255,255,255,.07);
+  transition:transform .4s,box-shadow .4s;
 }
-/* top gloss streak */
-.firm-card::before{
-  content:'';position:absolute;top:0;left:10%;right:10%;height:1px;
-  background:linear-gradient(90deg,transparent,rgba(255,255,255,.18),transparent);
-  pointer-events:none;
-}
-/* shimmer sweep */
-.firm-card::after{
-  content:'';position:absolute;top:0;left:-120%;width:60%;height:100%;
-  background:linear-gradient(90deg,transparent,rgba(255,255,255,.05),transparent);
-  transform:skewX(-18deg);
-  transition:left .7s cubic-bezier(.4,0,.2,1);
-}
-.firm-card:hover{
-  transform:translateY(-6px);
-  box-shadow:
-    0 0 0 1px rgba(255,255,255,.16),
-    0 16px 50px rgba(255,255,255,.08),
-    0 0 120px rgba(255,255,255,.05),
-    inset 0 1px 0 rgba(255,255,255,.14);
-}
+.firm-card::before{content:'';position:absolute;top:0;left:10%;right:10%;height:1px;background:linear-gradient(90deg,transparent,rgba(255,255,255,.16),transparent);}
+.firm-card::after{content:'';position:absolute;top:0;left:-120%;width:60%;height:100%;background:linear-gradient(90deg,transparent,rgba(255,255,255,.05),transparent);transform:skewX(-18deg);transition:left .7s cubic-bezier(.4,0,.2,1);}
+.firm-card:hover{transform:translateY(-6px);box-shadow:0 0 0 1px rgba(255,255,255,.15),0 16px 50px rgba(255,255,255,.07),0 0 100px rgba(255,255,255,.04),inset 0 1px 0 rgba(255,255,255,.12);}
 .firm-card:hover::after{left:160%;}
-
-.firm-card img{
-  height:32px;width:auto;
-  filter:grayscale(1) brightness(.45);
-  transition:filter .5s,transform .4s;
-  position:relative;z-index:1;
-}
-.firm-card:hover img{
-  filter:grayscale(0) brightness(1.1) drop-shadow(0 0 18px rgba(255,255,255,.6));
-  transform:scale(1.1);
-}
-.firm-name{
-  font-size:.5rem;font-weight:600;letter-spacing:.2em;text-transform:uppercase;
-  color:rgba(255,255,255,.35);margin-top:1rem;transition:color .3s;
-  position:relative;z-index:1;
-}
+.firm-card img{height:32px;width:auto;filter:grayscale(1) brightness(.45);transition:filter .5s,transform .4s;position:relative;z-index:1;}
+.firm-card:hover img{filter:grayscale(0) brightness(1.1) drop-shadow(0 0 16px rgba(255,255,255,.55));transform:scale(1.08);}
+.firm-name{font-size:.5rem;font-weight:600;letter-spacing:.2em;text-transform:uppercase;color:rgba(255,255,255,.3);margin-top:1rem;transition:color .3s;position:relative;z-index:1;}
 .firm-card:hover .firm-name{color:var(--silk);}
-
-/* featured / wider cards — bento layout */
-.firm-card.wide{grid-column:span 2;}
-.firm-card.wide .firm-card-inner{display:flex;align-items:center;gap:2rem;}
-.firm-card.wide img{height:36px;}
-
-.firms-note{font-size:.56rem;color:var(--dim);text-align:center;margin-top:2rem;letter-spacing:.08em;opacity:.45;}
+.firms-note{font-size:.56rem;color:var(--dim);text-align:center;margin-top:2rem;letter-spacing:.08em;opacity:.4;}
 
 /* ── CHART ── */
 #chart{background:var(--bg);}
 .chart-head{display:flex;justify-content:space-between;align-items:flex-end;margin-bottom:2rem;flex-wrap:wrap;gap:1rem;}
 .live-badge{display:flex;align-items:center;gap:.6rem;font-size:.52rem;font-weight:600;letter-spacing:.18em;text-transform:uppercase;color:var(--mid);}
-.ldot{width:6px;height:6px;border-radius:50%;background:#6ee7b7;box-shadow:0 0 8px rgba(110,231,183,.5);animation:ldotblink 1.5s ease-in-out infinite;}
+.ldot{width:6px;height:6px;border-radius:50%;background:#6ee7b7;box-shadow:0 0 8px rgba(110,231,183,.4);animation:ldotblink 1.5s ease-in-out infinite;}
 @keyframes ldotblink{0%,100%{opacity:1;}50%{opacity:.3;}}
 .chartbox{border:1px solid var(--line);border-radius:var(--r);overflow:hidden;}
 
@@ -343,10 +232,10 @@ section{padding:120px 0;position:relative;}
 .bcard:hover .bread{transform:translateX(0);opacity:1;}
 
 /* ── MODAL ── */
-#modal{position:fixed;inset:0;z-index:800;background:rgba(8,8,8,.97);backdrop-filter:blur(24px);overflow-y:auto;opacity:0;pointer-events:none;transition:opacity .4s;}
+#modal{position:fixed;inset:0;z-index:8000;background:rgba(8,8,8,.97);backdrop-filter:blur(24px);overflow-y:auto;opacity:0;pointer-events:none;transition:opacity .4s;}
 #modal.open{opacity:1;pointer-events:all;}
 .minner{max-width:780px;margin:0 auto;padding:7rem 2.5rem 6rem;}
-.mclose{position:fixed;top:2rem;right:2.5rem;font-size:.52rem;font-weight:600;letter-spacing:.2em;text-transform:uppercase;color:var(--mid);background:none;border:1px solid var(--line);border-radius:100px;padding:.42rem 1rem;cursor:none;transition:color .3s,border-color .3s;z-index:801;}
+.mclose{position:fixed;top:2rem;right:2.5rem;font-size:.52rem;font-weight:600;letter-spacing:.2em;text-transform:uppercase;color:var(--mid);background:none;border:1px solid var(--line);border-radius:100px;padding:.42rem 1rem;cursor:none;transition:color .3s,border-color .3s;z-index:8001;}
 .mclose:hover{color:var(--white);border-color:rgba(255,255,255,.2);}
 .mcat{font-size:.5rem;font-weight:600;letter-spacing:.28em;text-transform:uppercase;color:var(--dim);}
 .mtitle{font-size:clamp(1.8rem,5vw,3rem);font-weight:800;color:var(--white);line-height:1.1;margin-top:.6rem;letter-spacing:-.02em;}
@@ -356,24 +245,24 @@ section{padding:120px 0;position:relative;}
 .mbody h3{font-size:1rem;font-weight:700;color:var(--white);letter-spacing:-.01em;margin:2.5rem 0 .7rem;}
 .mbody p{margin-bottom:1.2rem;}
 .mbody strong{color:var(--white);font-weight:600;}
-.mbody blockquote{border-left:2px solid var(--line2);padding-left:1.75rem;color:var(--mid);font-style:italic;margin:1.75rem 0;font-size:1.05rem;}
+.mbody blockquote{border-left:2px solid var(--line2);padding-left:1.75rem;color:var(--mid);font-style:italic;margin:1.75rem 0;}
 .mbody ul{margin:1rem 0 1.2rem 1.5rem;}
 .mbody li{margin-bottom:.5rem;}
 
 /* ── FOLLOW ── */
 #follow{background:var(--bg);}
 .follow-box{position:relative;overflow:hidden;border:1px solid var(--line);border-radius:var(--r);padding:7rem 2rem;text-align:center;}
-.follow-box::before{content:'';position:absolute;top:50%;left:50%;width:600px;height:600px;border-radius:50%;background:radial-gradient(circle,rgba(255,255,255,.04) 0%,transparent 70%);transform:translate(-50%,-50%);pointer-events:none;animation:fbglow 5s ease-in-out infinite;}
-@keyframes fbglow{0%,100%{opacity:.5;transform:translate(-50%,-50%) scale(1);}50%{opacity:1;transform:translate(-50%,-50%) scale(1.15);}}
-.follow-box::after{content:'';position:absolute;top:0;left:15%;right:15%;height:1px;background:linear-gradient(90deg,transparent,rgba(255,255,255,.15),transparent);}
-.fbg-word{position:absolute;bottom:-4rem;left:50%;transform:translateX(-50%);font-size:clamp(6rem,22vw,20rem);font-weight:800;color:rgba(255,255,255,.025);white-space:nowrap;pointer-events:none;user-select:none;letter-spacing:-.04em;line-height:1;}
+.follow-box::before{content:'';position:absolute;top:50%;left:50%;width:600px;height:600px;border-radius:50%;background:radial-gradient(circle,rgba(255,255,255,.035) 0%,transparent 70%);transform:translate(-50%,-50%);pointer-events:none;animation:fbglow 5s ease-in-out infinite;}
+@keyframes fbglow{0%,100%{opacity:.5;transform:translate(-50%,-50%) scale(1);}50%{opacity:1;transform:translate(-50%,-50%) scale(1.1);}}
+.follow-box::after{content:'';position:absolute;top:0;left:15%;right:15%;height:1px;background:linear-gradient(90deg,transparent,rgba(255,255,255,.14),transparent);}
+.fbg-word{position:absolute;bottom:-4rem;left:50%;transform:translateX(-50%);font-size:clamp(6rem,22vw,20rem);font-weight:800;color:rgba(255,255,255,.022);white-space:nowrap;pointer-events:none;user-select:none;letter-spacing:-.04em;line-height:1;}
 .ftitle{font-size:clamp(2.2rem,6vw,5rem);font-weight:800;color:var(--white);line-height:1;letter-spacing:-.03em;position:relative;}
 .ftitle em{font-family:'Cormorant Garamond',serif;font-style:italic;font-weight:300;color:var(--mist);}
 .fsub{font-size:.85rem;font-weight:300;color:var(--mid);margin-top:.85rem;position:relative;}
 .soc-row{display:flex;justify-content:center;gap:.75rem;flex-wrap:wrap;margin-top:3rem;position:relative;}
 .soc{display:flex;align-items:center;gap:.65rem;padding:.75rem 1.5rem;border-radius:100px;font-size:.58rem;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--silk);border:1px solid var(--line2);background:rgba(255,255,255,.04);position:relative;overflow:hidden;transition:border-color .4s,box-shadow .4s,transform .3s;}
 .soc::before{content:'';position:absolute;inset:0;border-radius:100px;background:var(--white);transform:translateY(101%);transition:transform .4s cubic-bezier(.4,0,.2,1);}
-.soc:hover{border-color:rgba(255,255,255,.22);box-shadow:0 0 28px rgba(255,255,255,.07);transform:translateY(-2px);}
+.soc:hover{border-color:rgba(255,255,255,.22);box-shadow:0 0 24px rgba(255,255,255,.06);transform:translateY(-2px);}
 .soc:hover::before{transform:translateY(0);}
 .soc svg,.soc span{position:relative;z-index:1;transition:color .4s;}
 .soc:hover svg,.soc:hover span{color:var(--bg);}
@@ -383,25 +272,25 @@ section{padding:120px 0;position:relative;}
 .contact-c{display:flex;flex-direction:column;align-items:center;text-align:center;}
 .cbody{font-size:.85rem;font-weight:300;color:var(--mid);line-height:1.85;max-width:500px;margin-top:1rem;}
 .cemail{display:inline-flex;align-items:center;gap:.75rem;margin-top:2.5rem;padding:.9rem 2.5rem;border-radius:100px;font-size:.62rem;font-weight:600;letter-spacing:.16em;text-transform:uppercase;color:var(--white);border:1px solid var(--line2);background:rgba(255,255,255,.04);transition:all .4s;}
-.cemail:hover{background:rgba(255,255,255,.09);border-color:rgba(255,255,255,.22);box-shadow:0 0 30px rgba(255,255,255,.06);}
+.cemail:hover{background:rgba(255,255,255,.09);border-color:rgba(255,255,255,.22);box-shadow:0 0 28px rgba(255,255,255,.06);}
 
-/* ── FOOTER — simple, no CTA ── */
+/* ── FOOTER ── */
 footer{border-top:1px solid var(--line);background:var(--bg);}
-.footer-bottom{max-width:1280px;margin:0 auto;padding:2rem 2rem;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:1rem;}
+.footer-bottom{max-width:1280px;margin:0 auto;padding:2rem;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:1rem;}
 .flogo{font-size:.72rem;font-weight:800;letter-spacing:.15em;text-transform:uppercase;color:var(--dim);}
-.fcopy{font-size:.5rem;color:var(--dim);opacity:.5;letter-spacing:.1em;}
+.fcopy{font-size:.5rem;color:var(--dim);opacity:.45;letter-spacing:.1em;}
 .flinks{display:flex;gap:1.5rem;}
-.flinks a{font-size:.5rem;color:var(--dim);opacity:.5;letter-spacing:.12em;text-transform:uppercase;transition:opacity .3s;}
+.flinks a{font-size:.5rem;color:var(--dim);opacity:.45;letter-spacing:.12em;text-transform:uppercase;transition:opacity .3s;}
 .flinks a:hover{opacity:1;}
 
-/* ── REVEAL ── */
-.rv{opacity:0;transform:translateY(34px);transition:opacity .9s cubic-bezier(.16,1,.3,1),transform .9s cubic-bezier(.16,1,.3,1);}
-.rvl{opacity:0;transform:translateX(-34px);transition:opacity .9s cubic-bezier(.16,1,.3,1),transform .9s cubic-bezier(.16,1,.3,1);}
-.rvr{opacity:0;transform:translateX(34px);transition:opacity .9s cubic-bezier(.16,1,.3,1),transform .9s cubic-bezier(.16,1,.3,1);}
-.rv.in,.rvl.in,.rvr.in{opacity:1;transform:translate(0);}
-.d1{transition-delay:.08s;}.d2{transition-delay:.16s;}.d3{transition-delay:.24s;}
-.d4{transition-delay:.32s;}.d5{transition-delay:.4s;}.d6{transition-delay:.48s;}
-.d7{transition-delay:.56s;}.d8{transition-delay:.64s;}
+/* ── SCROLL REVEAL — start visible, animate in ── */
+.rv {opacity:0;transform:translateY(32px);transition:opacity .85s cubic-bezier(.16,1,.3,1),transform .85s cubic-bezier(.16,1,.3,1);}
+.rvl{opacity:0;transform:translateX(-32px);transition:opacity .85s cubic-bezier(.16,1,.3,1),transform .85s cubic-bezier(.16,1,.3,1);}
+.rvr{opacity:0;transform:translateX(32px);transition:opacity .85s cubic-bezier(.16,1,.3,1),transform .85s cubic-bezier(.16,1,.3,1);}
+.rv.in,.rvl.in,.rvr.in{opacity:1;transform:translate(0,0);}
+.d1{transition-delay:.07s;}.d2{transition-delay:.14s;}.d3{transition-delay:.21s;}
+.d4{transition-delay:.28s;}.d5{transition-delay:.35s;}.d6{transition-delay:.42s;}
+.d7{transition-delay:.49s;}.d8{transition-delay:.56s;}
 
 /* ── RESPONSIVE ── */
 @media(max-width:900px){
@@ -413,7 +302,6 @@ footer{border-top:1px solid var(--line);background:var(--bg);}
   .feat-img{min-height:300px;}
   .feat-img::after,.feat-row.flip .feat-img::after{background:linear-gradient(to bottom,transparent 50%,var(--bg) 100%);}
   .firms-bento{grid-template-columns:repeat(2,1fr);}
-  .firm-card.wide{grid-column:span 1;}
   .bgrid{grid-template-columns:1fr;}
   .bcard.feat{grid-column:span 1;}
   .statsgrid{grid-template-columns:repeat(2,1fr);}
@@ -447,10 +335,8 @@ footer{border-top:1px solid var(--line);background:var(--bg);}
   <div class="nv">
     <div class="nlogo">SwagKong</div>
     <nav class="nlinks">
-      <a href="#about">About</a>
-      <a href="#firms">Firms</a>
-      <a href="#chart">Live</a>
-      <a href="#blog">Blog</a>
+      <a href="#about">About</a><a href="#firms">Firms</a>
+      <a href="#chart">Live</a><a href="#blog">Blog</a>
       <a href="#follow" class="ncta">Follow</a>
     </nav>
     <button id="nmb" aria-label="Menu">
@@ -471,22 +357,17 @@ footer{border-top:1px solid var(--line);background:var(--bg);}
 <!-- HERO -->
 <section id="hero">
   <video id="hvid" autoplay muted loop playsinline><source src="hero.mp4" type="video/mp4"></video>
-  <div class="hfade"></div>
+  <div class="hero-ov"></div>
   <div class="hgrid"></div>
+  <div class="hfade"></div>
   <div class="hwrap">
-    <div class="hbadge">
-      <div class="hbadge-dot"></div>
-      <div class="hbadge-txt">Est. 2014 — Elite Prop Trader</div>
-    </div>
-
-    <!-- NEON 3D HEADLINE -->
+    <div class="hbadge"><div class="hbdot"></div><div class="hbtxt">Est. 2014 — Elite Prop Trader</div></div>
     <h1 class="hh1">
-      <span class="nline">Make It</span>
-      <span class="nline">Simple.</span>
-      <span class="nline italic-dim">Execute.</span>
+      <span class="sw">Make It</span>
+      <span class="sw">Simple.</span>
+      <span class="sw dim">Execute.</span>
     </h1>
-
-    <p class="hsub">Real prop firm experience since 2014. No theory, no noise — just the discipline and setups that actually work in live markets.</p>
+    <p class="hsub">Real prop firm experience since 2014. No theory, no noise — just discipline and setups that actually work.</p>
     <div class="hacts">
       <a href="#blog" class="btnw"><span>Read the Blog</span><span>→</span></a>
       <a href="#about" class="btno">About SwagKong</a>
@@ -533,12 +414,9 @@ footer{border-top:1px solid var(--line);background:var(--bg);}
     <div class="center rv"><span class="sec-pill">About SwagKong</span></div>
     <h2 class="sec-h center rv d1">The Edge Is Not <em>a Secret</em></h2>
     <p class="sec-sub center rv d2">Built from real market experience since 2014.</p>
-
-    <!-- Row 1: image + text -->
+    <!-- Row 1 -->
     <div class="feat-row rv d2" style="margin-top:3.5rem;">
-      <div class="feat-img rvl">
-        <img src="about.png" alt="SwagKong">
-      </div>
+      <div class="feat-img rvl"><img src="about.png" alt="SwagKong"></div>
       <div class="feat-txt rvr">
         <div class="feat-tag">01 — Who I Am</div>
         <div class="feat-title">Real Experience.<br><em>No Gurus.</em></div>
@@ -551,19 +429,18 @@ footer{border-top:1px solid var(--line);background:var(--bg);}
         </div>
       </div>
     </div>
-
-    <!-- Row 2: SK card + pillars -->
+    <!-- Row 2 -->
     <div class="feat-row flip rv d2" style="margin-top:1.5rem;">
       <div class="feat-img rvr" style="background:var(--bg3);display:flex;align-items:center;justify-content:center;padding:3rem;">
         <div style="width:100%;max-width:340px;background:rgba(255,255,255,.04);border:1px solid var(--line2);border-radius:14px;padding:2rem;backdrop-filter:blur(16px);position:relative;">
-          <div style="position:absolute;top:0;left:10%;right:10%;height:1px;background:linear-gradient(90deg,transparent,rgba(255,255,255,.15),transparent);"></div>
+          <div style="position:absolute;top:0;left:10%;right:10%;height:1px;background:linear-gradient(90deg,transparent,rgba(255,255,255,.14),transparent);"></div>
           <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:1.5rem;">
             <div style="font-size:.85rem;font-weight:800;color:var(--white);">SK</div>
             <div style="font-size:.46rem;font-weight:600;letter-spacing:.18em;text-transform:uppercase;color:var(--mid);border:1px solid var(--line2);border-radius:100px;padding:.25rem .7rem;">Elite Trader</div>
           </div>
           <div style="font-size:3rem;font-weight:800;color:var(--white);letter-spacing:-.03em;line-height:1;">10+</div>
-          <div style="font-size:.48rem;font-weight:600;letter-spacing:.2em;text-transform:uppercase;color:var(--mid);margin-top:.3rem;margin-bottom:1.2rem;">Years in Live Markets</div>
-          <div style="height:3px;background:rgba(255,255,255,.07);border-radius:100px;overflow:hidden;margin-bottom:1.5rem;"><div style="width:85%;height:100%;background:linear-gradient(90deg,rgba(255,255,255,.3),rgba(255,255,255,.7));border-radius:100px;"></div></div>
+          <div style="font-size:.48rem;font-weight:600;letter-spacing:.2em;text-transform:uppercase;color:var(--mid);margin:.3rem 0 1.2rem;">Years in Live Markets</div>
+          <div style="height:3px;background:rgba(255,255,255,.07);border-radius:100px;overflow:hidden;margin-bottom:1.5rem;"><div style="width:85%;height:100%;background:linear-gradient(90deg,rgba(255,255,255,.3),rgba(255,255,255,.65));border-radius:100px;"></div></div>
           <div style="display:flex;flex-direction:column;gap:.7rem;">
             <div style="display:flex;justify-content:space-between;"><span style="font-size:.6rem;color:var(--mid);">Prop Firms Traded</span><span style="font-size:.62rem;font-weight:700;color:var(--bright);">8 Firms</span></div>
             <div style="display:flex;justify-content:space-between;"><span style="font-size:.6rem;color:var(--mid);">Primary Setup</span><span style="font-size:.62rem;font-weight:700;color:var(--bright);">XAU / USD</span></div>
@@ -590,38 +467,21 @@ footer{border-top:1px solid var(--line);background:var(--bg);}
   </div>
 </section>
 
-<!-- FIRMS — GLASS BENTO -->
+<!-- FIRMS -->
 <section id="firms">
   <div class="wrap">
     <div class="center rv"><span class="sec-pill">Trusted Experience</span></div>
     <h2 class="sec-h center rv d1">Firms I've <em>Personally</em> Traded With</h2>
     <p class="sec-sub center rv d2">Curated, not sponsored. Every firm listed is one I have personally passed and received payouts from.</p>
-
     <div class="firms-bento">
-      <a href="https://superfunded.com/?aff=50" target="_blank" rel="noopener" class="firm-card rv d1">
-        <img src="superfunded.png" alt="SuperFunded"><div class="firm-name">SuperFunded</div>
-      </a>
-      <a href="https://pipfarm.com/?ref=swagkong" target="_blank" rel="noopener" class="firm-card rv d2">
-        <img src="pipfarm.png" alt="PipFarm"><div class="firm-name">PipFarm</div>
-      </a>
-      <a href="https://www.hyrotrader.com/?coupon=swagkong" target="_blank" rel="noopener" class="firm-card rv d3">
-        <img src="hyro.png" alt="HyroTrader"><div class="firm-name">HyroTrader</div>
-      </a>
-      <a href="https://t.co/XPRI1gzuNB" target="_blank" rel="noopener" class="firm-card rv d4">
-        <img src="8cap.png" alt="8CapChallenge"><div class="firm-name">8CapChallenge</div>
-      </a>
-      <a href="https://checkout.bemfunding.com/?ref=SwagKong" target="_blank" rel="noopener" class="firm-card rv d5">
-        <img src="bemfunding.png" alt="BemFunding"><div class="firm-name">BemFunding</div>
-      </a>
-      <a href="https://fundedtradermarkets.com/ref/swagkong" target="_blank" rel="noopener" class="firm-card rv d6">
-        <img src="ftm.png" alt="Funded Trader Markets"><div class="firm-name">Funded Trader Markets</div>
-      </a>
-      <a href="https://go.monetafunded.com/visit/?bta=35301&brand=monetafunded" target="_blank" rel="noopener" class="firm-card rv d7">
-        <img src="moneta.png" alt="Moneta Funded"><div class="firm-name">Moneta Funded</div>
-      </a>
-      <a href="https://partners.dnafunded.com/click?campaign_id=1&ref_id=751" target="_blank" rel="noopener" class="firm-card rv d8">
-        <img src="dna.png" alt="DNAFunded"><div class="firm-name">DNAFunded</div>
-      </a>
+      <a href="https://superfunded.com/?aff=50" target="_blank" rel="noopener" class="firm-card rv d1"><img src="superfunded.png" alt="SuperFunded"><div class="firm-name">SuperFunded</div></a>
+      <a href="https://pipfarm.com/?ref=swagkong" target="_blank" rel="noopener" class="firm-card rv d2"><img src="pipfarm.png" alt="PipFarm"><div class="firm-name">PipFarm</div></a>
+      <a href="https://www.hyrotrader.com/?coupon=swagkong" target="_blank" rel="noopener" class="firm-card rv d3"><img src="hyro.png" alt="HyroTrader"><div class="firm-name">HyroTrader</div></a>
+      <a href="https://t.co/XPRI1gzuNB" target="_blank" rel="noopener" class="firm-card rv d4"><img src="8cap.png" alt="8CapChallenge"><div class="firm-name">8CapChallenge</div></a>
+      <a href="https://checkout.bemfunding.com/?ref=SwagKong" target="_blank" rel="noopener" class="firm-card rv d5"><img src="bemfunding.png" alt="BemFunding"><div class="firm-name">BemFunding</div></a>
+      <a href="https://fundedtradermarkets.com/ref/swagkong" target="_blank" rel="noopener" class="firm-card rv d6"><img src="ftm.png" alt="Funded Trader Markets"><div class="firm-name">Funded Trader Markets</div></a>
+      <a href="https://go.monetafunded.com/visit/?bta=35301&brand=monetafunded" target="_blank" rel="noopener" class="firm-card rv d7"><img src="moneta.png" alt="Moneta Funded"><div class="firm-name">Moneta Funded</div></a>
+      <a href="https://partners.dnafunded.com/click?campaign_id=1&ref_id=751" target="_blank" rel="noopener" class="firm-card rv d8"><img src="dna.png" alt="DNAFunded"><div class="firm-name">DNAFunded</div></a>
     </div>
     <p class="firms-note rv">* Some links are affiliate links — listed for full transparency.</p>
   </div>
@@ -703,7 +563,7 @@ footer{border-top:1px solid var(--line);background:var(--bg);}
   </div>
 </section>
 
-<!-- FOOTER — clean, no CTA -->
+<!-- FOOTER -->
 <footer>
   <div class="footer-bottom">
     <div class="flogo">SwagKong Elite</div>
@@ -716,133 +576,95 @@ footer{border-top:1px solid var(--line);background:var(--bg);}
 document.addEventListener('DOMContentLoaded', function(){
 
   var POSTS=[
-    {id:1,cat:'psychology',feat:true,
-     title:'The Six Mental Traps Silently Killing Your Trading',
-     date:'Apr 2026',read:'10 min',
+    {id:1,cat:'psychology',feat:true,title:'The Six Mental Traps Silently Killing Your Trading',date:'Apr 2026',read:'10 min',
      excerpt:'You have a setup. You have a plan. And yet you still lose — not because your strategy is broken, but because your mind is working against you.',
-     body:`<p>I have been trading since 2014. What I can tell you with certainty: <strong>the market did not beat me. My mind did.</strong></p>
-<h3>1. Revenge Trading</h3>
-<p>You take a loss — clean setup, rules followed, stopped out. Then something shifts. You want your money back.</p>
-<blockquote>The market does not know you exist. Every trade taken to "get back" losses is an emotional trade, not a strategic one.</blockquote>
-<p>What I do now: <strong>after any loss hitting more than 50% of my daily limit, I close the platform immediately.</strong></p>
-<h3>2. FOMO</h3>
-<p>Price moves hard. You were not in. You jump in late chasing. The fix: <strong>accept that you will miss trades.</strong> Missing a move costs nothing. Chasing it costs real money.</p>
-<h3>3. Overtrading</h3>
-<blockquote>The market pays you to be right, not to be busy.</blockquote>
-<p>I rate every entry A, B, or C. <strong>C setups have negative expectancy. If it is C, I skip it every time.</strong></p>
-<h3>4. Anchoring to Entry Price</h3>
-<p>The market has no idea where you got in. Ask before every trade: if I had no position right now, would I enter here? If no — get out.</p>
-<h3>5. Outcome Bias</h3>
-<blockquote>A good trade followed your rules. A bad trade did not. The result is a separate variable entirely.</blockquote>
-<h3>6. Overconfidence After a Win Streak</h3>
-<p>Five winners in a row. You feel untouchable. Then one trade wipes most of it back. After any win streak: <strong>keep size the same, tighten entry criteria, stay humble.</strong></p>
-<h3>The Checklist</h3>
-<ul>
-<li>Log every trade — result AND emotional state</li>
-<li>Hard daily loss limit — walk away the moment you hit it</li>
-<li>Rate every entry A, B, or C — if C, skip it every time</li>
-<li>Weekly review for mistake patterns, not wins</li>
-<li>Before every entry: setup or emotion?</li>
-</ul>`},
-    {id:2,cat:'prop-firms',feat:false,
-     title:'My Honest Review of PipFarm After 6 Months',
-     date:'Jan 2026',read:'8 min',
+     body:'<p>I have been trading since 2014. <strong>The market did not beat me. My mind did.</strong></p><h3>1. Revenge Trading</h3><p>After any loss hitting 50%+ of my daily limit, I close the platform immediately. No exceptions.</p><blockquote>The market does not owe you anything. Every trade to "get back" losses is emotional, not strategic.</blockquote><h3>2. FOMO</h3><p>Missing a move costs nothing. Chasing it costs real money. <strong>Accept that you will miss trades.</strong></p><h3>3. Overtrading</h3><blockquote>The market pays you to be right, not to be busy.</blockquote><p>I rate every entry A, B, or C. <strong>C setups have negative expectancy — skip them every time.</strong></p><h3>4. Anchoring to Entry</h3><p>Ask: if I had no position right now, would I enter here? If no — get out. The market has no idea where you got in.</p><h3>5. Outcome Bias</h3><blockquote>A good trade followed your rules. A bad trade did not. The result is a separate variable.</blockquote><h3>6. Overconfidence After Wins</h3><p>After any win streak: keep size the same, tighten entry criteria, stay humble.</p><h3>The Checklist</h3><ul><li>Log every trade — result AND emotional state</li><li>Hard daily loss limit — walk away when hit</li><li>Rate every entry A, B, C — skip C every time</li><li>Weekly review for mistake patterns, not wins</li><li>Before every entry: setup or emotion?</li></ul>'},
+    {id:2,cat:'prop-firms',feat:false,title:'My Honest Review of PipFarm After 6 Months',date:'Jan 2026',read:'8 min',
      excerpt:'Six months, three funded accounts, and more lessons than expected. The good, the frustrating, and what no one tells you.',
-     body:`<p>Started with PipFarm in mid-2025. Not sponsored. This is what actually happened.</p>
-<h3>The Challenge</h3>
-<p><strong>5% max daily drawdown, 10% overall.</strong> Passed my first challenge in 14 days trading XAU/USD on the 15-minute timeframe.</p>
-<blockquote>Biggest mistake traders make on challenges: treating it like a sprint. It is a patience test.</blockquote>
-<h3>Funded & Payouts</h3>
-<p>Account live within 48 hours. Three payouts received, all on time. This puts PipFarm ahead of most firms.</p>
-<h3>Final Verdict</h3>
-<p><strong>Recommended.</strong> Trade clean, manage risk — PipFarm is solid long-term.</p>`},
-    {id:3,cat:'risk',feat:false,
-     title:'The Only Risk Framework You Actually Need',
-     date:'Feb 2026',read:'6 min',
-     excerpt:'Position sizing, drawdown limits, daily loss rules — one simple framework used since 2014. No complexity.',
-     body:`<p>Risk management is not complex. People make it complex.</p>
-<h3>The 1% Rule</h3>
-<p>I risk <strong>1% per trade. Always.</strong> This removes emotion from position sizing entirely.</p>
-<h3>Daily Loss Limit</h3>
-<p>If I lose 3% in a day, I stop. Log off. Come back tomorrow.</p>
-<blockquote>The market is always there tomorrow. Your account might not be if you keep trading after a bad day.</blockquote>
-<h3>Weekly Review</h3>
-<p>Every Sunday — find patterns in mistakes, not wins. That is how you actually improve.</p>`},
-    {id:4,cat:'prop-firms',feat:false,
-     title:'SuperFunded vs HyroTrader — Which Is Right for You?',
-     date:'Mar 2026',read:'7 min',
+     body:'<p>Started with PipFarm in mid-2025. Not sponsored.</p><h3>The Challenge</h3><p><strong>5% max daily drawdown, 10% overall.</strong> Passed in 14 days trading XAU/USD on the 15-minute timeframe.</p><blockquote>Biggest mistake on challenges: treating it like a sprint. It is a patience test.</blockquote><h3>Payouts</h3><p>Three payouts received, all on time. This alone puts PipFarm ahead of most firms.</p><h3>Verdict</h3><p><strong>Recommended.</strong> Trade clean, manage risk — solid long-term.</p>'},
+    {id:3,cat:'risk',feat:false,title:'The Only Risk Framework You Actually Need',date:'Feb 2026',read:'6 min',
+     excerpt:'Position sizing, drawdown limits, daily loss rules — one simple framework since 2014.',
+     body:'<p>Risk management is not complex. People make it complex.</p><h3>The 1% Rule</h3><p>I risk <strong>1% per trade. Always.</strong> Removes emotion from position sizing entirely.</p><h3>Daily Loss Limit</h3><p>If I lose 3% in a day, I stop. Log off. Come back tomorrow.</p><blockquote>The market is always there tomorrow. Your account might not be if you keep trading after a bad day.</blockquote><h3>Weekly Review</h3><p>Every Sunday — find patterns in mistakes, not wins. That is how you improve.</p>'},
+    {id:4,cat:'prop-firms',feat:false,title:'SuperFunded vs HyroTrader — Which Is Right for You?',date:'Mar 2026',read:'7 min',
      excerpt:'Different rules, different structures. My honest side-by-side after trading with both.',
-     body:`<p>Both firms are solid. Choosing the wrong one for your level is an expensive mistake.</p>
-<h3>SuperFunded</h3>
-<p>Clean interface, fast payouts, forgiving drawdown rules. <strong>New to prop trading? Start here.</strong></p>
-<h3>HyroTrader</h3>
-<p>Higher scaling potential, stricter rules. Suits traders who already know their edge.</p>
-<blockquote>Choose your firm based on your current level, not the one you want to be at.</blockquote>`},
-    {id:5,cat:'setups',feat:false,
-     title:'The XAU/USD 15M Setup I Use Every Week',
-     date:'Mar 2026',read:'6 min',
-     excerpt:'Simple structure, clear rules, consistent results. My core gold approach — nothing fancy, just price and levels.',
-     body:`<p>I trade XAU/USD on the 15-minute chart. Here is what I look for every session.</p>
-<h3>The Setup</h3>
-<p>Wait for price to sweep a liquidity level, then look for a reversal structure. <strong>No indicators. Just price.</strong></p>
-<blockquote>If the setup is not clear, I do not trade. Clarity is non-negotiable.</blockquote>
-<h3>Session Timing</h3>
-<p>London open and New York open are where the majority of my setups occur. Outside those windows, I watch but rarely trade.</p>`},
-    {id:6,cat:'psychology',feat:false,
-     title:'How I Recovered From a 15% Drawdown Without Blowing Up',
-     date:'Apr 2026',read:'5 min',
-     excerpt:'It happens to everyone. The question is not whether you will face a drawdown — it is what you do when you are in one.',
-     body:`<p>I hit a 15% drawdown on a personal account last quarter. Here is exactly what I did.</p>
-<h3>Step 1 — Stop Immediately</h3>
-<p>Not after one more trade. Stop. Log off. Three days minimum away from the charts.</p>
-<h3>Step 2 — Review Without Emotion</h3>
-<p><strong>I had been trading outside my normal session times.</strong> That was the entire root cause.</p>
-<blockquote>Drawdowns are rarely random. There is almost always a pattern if you look honestly.</blockquote>
-<h3>Step 3 — Rebuild Process First</h3>
-<p>0.5% risk until 20 consecutive rule-following trades — win or lose. Confidence comes from process, not results.</p>`}
+     body:'<p>Both firms are solid. Choosing the wrong one for your level is expensive.</p><h3>SuperFunded</h3><p>Fast payouts, forgiving drawdown rules. <strong>New to prop trading? Start here.</strong></p><h3>HyroTrader</h3><p>Higher scaling potential, stricter rules. For traders who already know their edge.</p><blockquote>Choose based on your current level, not the one you want to be at.</blockquote>'},
+    {id:5,cat:'setups',feat:false,title:'The XAU/USD 15M Setup I Use Every Week',date:'Mar 2026',read:'6 min',
+     excerpt:'Simple structure, clear rules, consistent results. My core gold approach.',
+     body:'<p>I trade XAU/USD on the 15-minute chart. Here is what I look for every session.</p><h3>The Setup</h3><p>Wait for price to sweep a liquidity level, then look for a reversal structure. <strong>No indicators. Just price.</strong></p><blockquote>If the setup is not clear, I do not trade. Clarity is non-negotiable.</blockquote><h3>Timing</h3><p>London open and New York open. Outside those windows, I watch but rarely trade.</p>'},
+    {id:6,cat:'psychology',feat:false,title:'How I Recovered From a 15% Drawdown Without Blowing Up',date:'Apr 2026',read:'5 min',
+     excerpt:'It happens to everyone. The question is what you do when you are in one.',
+     body:'<p>I hit a 15% drawdown last quarter. Here is what I did.</p><h3>Step 1 — Stop</h3><p>Not after one more trade. Stop. Log off. Three days minimum away from charts.</p><h3>Step 2 — Review</h3><p><strong>I had been trading outside my normal session times.</strong> That was the entire root cause.</p><blockquote>Drawdowns are rarely random. There is almost always a pattern.</blockquote><h3>Step 3 — Rebuild</h3><p>0.5% risk until 20 consecutive rule-following trades — win or lose. Confidence comes from process, not results.</p>'}
   ];
 
   /* CURSOR */
   var cr=document.getElementById('cr'),cd=document.getElementById('cd');
   var mx=0,my=0,rx=0,ry=0;
-  document.addEventListener('mousemove',function(e){mx=e.clientX;my=e.clientY;if(cd){cd.style.left=mx+'px';cd.style.top=my+'px';}});
-  function addH(el){if(!cr)return;el.addEventListener('mouseenter',function(){cr.classList.add('big');});el.addEventListener('mouseleave',function(){cr.classList.remove('big');});}
+  document.addEventListener('mousemove',function(e){
+    mx=e.clientX;my=e.clientY;
+    if(cd){cd.style.left=mx+'px';cd.style.top=my+'px';}
+  });
+  function addH(el){
+    if(!cr)return;
+    el.addEventListener('mouseenter',function(){cr.classList.add('big');});
+    el.addEventListener('mouseleave',function(){cr.classList.remove('big');});
+  }
   document.querySelectorAll('a,button,.bcard,.firm-card').forEach(addH);
-  (function loop(){if(cr){rx+=(mx-rx)*.1;ry+=(my-ry)*.1;cr.style.left=rx+'px';cr.style.top=ry+'px';}requestAnimationFrame(loop);})();
+  (function loop(){
+    if(cr){rx+=(mx-rx)*.1;ry+=(my-ry)*.1;cr.style.left=rx+'px';cr.style.top=ry+'px';}
+    requestAnimationFrame(loop);
+  })();
 
-  /* SCROLL REVEAL */
-  var obs=new IntersectionObserver(function(entries){entries.forEach(function(e){if(e.isIntersecting){e.target.classList.add('in');obs.unobserve(e.target);}});},{threshold:0.07});
-  document.querySelectorAll('.rv,.rvl,.rvr').forEach(function(el){obs.observe(el);});
+  /* SCROLL REVEAL — threshold:0 so it fires as soon as 1px is visible */
+  var obs=new IntersectionObserver(function(entries){
+    entries.forEach(function(e){
+      if(e.isIntersecting){
+        e.target.classList.add('in');
+        obs.unobserve(e.target);
+      }
+    });
+  },{threshold:0, rootMargin:'0px 0px -40px 0px'});
 
-  /* BLOG — fixed with template literals */
+  function observeAll(){
+    document.querySelectorAll('.rv,.rvl,.rvr').forEach(function(el){obs.observe(el);});
+  }
+  observeAll();
+
+  /* BLOG */
   function renderBlog(f){
-    var g=document.getElementById('bgrid');if(!g)return;
+    var g=document.getElementById('bgrid');
+    if(!g)return;
     var list=f==='all'?POSTS:POSTS.filter(function(p){return p.cat===f;});
     g.innerHTML=list.map(function(p,i){
       var ft=p.feat&&f==='all';
-      return `<div class="bcard${ft?' feat':''} rv d${Math.min(i+1,8)}" onclick="openPost(${p.id})">
-        <div class="bcat">${p.cat.replace('-',' ')}</div>
-        <div class="btitle">${p.title}</div>
-        <div class="bexc">${p.excerpt}</div>
-        <div class="bfoot"><span class="bdate">${p.date} · ${p.read}</span><span class="bread">Read →</span></div>
-      </div>`;
+      return '<div class="bcard'+(ft?' feat':'')+' rv d'+Math.min(i+1,8)+'" onclick="openPost('+p.id+')">'
+        +'<div class="bcat">'+p.cat.replace('-',' ')+'</div>'
+        +'<div class="btitle">'+p.title+'</div>'
+        +'<div class="bexc">'+p.excerpt+'</div>'
+        +'<div class="bfoot"><span class="bdate">'+p.date+' · '+p.read+'</span><span class="bread">Read →</span></div>'
+        +'</div>';
     }).join('');
+    /* observe newly created cards */
     g.querySelectorAll('.rv').forEach(function(el){obs.observe(el);});
     g.querySelectorAll('.bcard').forEach(addH);
   }
 
   /* MODAL */
   window.openPost=function(id){
-    var p=POSTS.filter(function(x){return x.id===id;})[0];if(!p)return;
+    var p=POSTS.filter(function(x){return x.id===id;})[0];
+    if(!p)return;
     document.getElementById('mcat').textContent=p.cat.replace('-',' ').toUpperCase();
     document.getElementById('mtitle').textContent=p.title;
     document.getElementById('mdate').textContent=p.date;
     document.getElementById('mread').textContent=p.read;
     document.getElementById('mbody').innerHTML=p.body;
-    var m=document.getElementById('modal');m.classList.add('open');m.scrollTop=0;
+    var m=document.getElementById('modal');
+    m.classList.add('open');m.scrollTop=0;
     document.body.style.overflow='hidden';
   };
-  function closeModal(){document.getElementById('modal').classList.remove('open');document.body.style.overflow='';}
+  function closeModal(){
+    document.getElementById('modal').classList.remove('open');
+    document.body.style.overflow='';
+  }
   document.getElementById('mcl').addEventListener('click',closeModal);
   document.getElementById('modal').addEventListener('click',function(e){if(e.target===e.currentTarget)closeModal();});
   document.addEventListener('keydown',function(e){if(e.key==='Escape')closeModal();});
@@ -851,26 +673,35 @@ document.addEventListener('DOMContentLoaded', function(){
   document.querySelectorAll('.bf').forEach(function(btn){
     btn.addEventListener('click',function(){
       document.querySelectorAll('.bf').forEach(function(b){b.classList.remove('on');});
-      btn.classList.add('on');renderBlog(btn.getAttribute('data-f'));
+      btn.classList.add('on');
+      renderBlog(btn.getAttribute('data-f'));
     });
   });
   renderBlog('all');
 
   /* NAV */
-  window.addEventListener('scroll',function(){document.getElementById('nav').classList.toggle('sc',window.scrollY>60);});
+  window.addEventListener('scroll',function(){
+    document.getElementById('nav').classList.toggle('sc',window.scrollY>60);
+  });
   var mb=document.getElementById('nmb'),mm=document.getElementById('nmm');
-  if(mb&&mm){mb.addEventListener('click',function(){mm.style.display=mm.style.display==='block'?'none':'block';});mm.querySelectorAll('a').forEach(function(a){a.addEventListener('click',function(){mm.style.display='none';});});}
-
-  /* CURSOR BLINK */
-  setInterval(function(){var c=document.getElementById('hero-cur');if(c)c.style.opacity=c.style.opacity==='0'?'1':'0';},530);
+  if(mb&&mm){
+    mb.addEventListener('click',function(){mm.style.display=mm.style.display==='block'?'none':'block';});
+    mm.querySelectorAll('a').forEach(function(a){a.addEventListener('click',function(){mm.style.display='none';});});
+  }
 
   /* TRADINGVIEW */
   function initTV(){
     if(typeof TradingView!=='undefined'){
-      new TradingView.widget({width:'100%',height:520,symbol:'OANDA:XAUUSD',interval:'15',timezone:'Etc/UTC',theme:'dark',style:'1',locale:'en',backgroundColor:'rgba(8,8,8,1)',gridColor:'rgba(255,255,255,0.03)',hide_top_toolbar:false,save_image:false,container_id:'tvchart'});
+      new TradingView.widget({
+        width:'100%',height:520,symbol:'OANDA:XAUUSD',
+        interval:'15',timezone:'Etc/UTC',theme:'dark',style:'1',locale:'en',
+        backgroundColor:'rgba(8,8,8,1)',gridColor:'rgba(255,255,255,0.03)',
+        hide_top_toolbar:false,save_image:false,container_id:'tvchart'
+      });
     } else {setTimeout(initTV,1500);}
   }
   initTV();
+
 });
 </script>
 </body>
