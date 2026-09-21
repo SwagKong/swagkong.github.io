@@ -202,6 +202,18 @@ section{padding:120px 0;}
 .firm-card:hover .firm-name{color:var(--silk);}
 .firms-note{font-size:.56rem;color:var(--dim);text-align:center;margin-top:2rem;letter-spacing:.08em;opacity:.4;}
 
+/* ── DISCOUNT CODE ── */
+.code-wrap{display:flex;align-items:center;justify-content:center;gap:1rem;flex-wrap:wrap;margin-top:2.2rem;}
+.code-label{font-size:.5rem;font-weight:600;letter-spacing:.22em;text-transform:uppercase;color:var(--mid);}
+.code-btn{display:inline-flex;align-items:center;gap:1rem;cursor:none;font-family:inherit;
+  background:rgba(255,255,255,.045);border:1px dashed rgba(255,255,255,.22);border-radius:100px;
+  padding:.5rem .55rem .5rem 1.4rem;color:var(--white);transition:border-color .3s,background .3s,box-shadow .3s;}
+.code-btn:hover{border-color:rgba(255,255,255,.4);background:rgba(255,255,255,.08);box-shadow:0 0 28px rgba(255,255,255,.06);}
+.code-val{font-size:.8rem;font-weight:800;letter-spacing:.18em;text-transform:uppercase;}
+.code-act{display:inline-flex;align-items:center;gap:.4rem;background:var(--white);color:var(--bg);
+  font-size:.52rem;font-weight:700;letter-spacing:.16em;text-transform:uppercase;padding:.5rem 1rem;border-radius:100px;transition:background .3s;}
+.code-btn.copied .code-act{background:#6ee7b7;}
+
 /* ── CHART ── */
 #chart{background:var(--bg);}
 .chart-head{display:flex;justify-content:space-between;align-items:flex-end;margin-bottom:2rem;flex-wrap:wrap;gap:1rem;}
@@ -473,15 +485,28 @@ footer{border-top:1px solid var(--line);background:var(--bg);}
     <div class="center rv"><span class="sec-pill">Trusted Experience</span></div>
     <h2 class="sec-h center rv d1">Firms I've <em>Personally</em> Traded With</h2>
     <p class="sec-sub center rv d2">Curated, not sponsored. Every firm listed is one I have personally passed and received payouts from.</p>
+
+    <!-- DISCOUNT CODE -->
+    <div class="code-wrap rv d3">
+      <span class="code-label">My code for discount</span>
+      <button class="code-btn" id="copyCode" type="button" data-code="swagkong" aria-label="Copy discount code swagkong">
+        <span class="code-val">swagkong</span>
+        <span class="code-act" id="copyTxt">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+          <span>Copy</span>
+        </span>
+      </button>
+    </div>
+
     <div class="firms-bento">
       <a href="https://superfunded.com/?aff=50" target="_blank" rel="noopener" class="firm-card rv d1"><img src="superfunded.png" alt="SuperFunded"><div class="firm-name">SuperFunded</div></a>
       <a href="https://pipfarm.com/?ref=swagkong" target="_blank" rel="noopener" class="firm-card rv d2"><img src="pipfarm.png" alt="PipFarm"><div class="firm-name">PipFarm</div></a>
       <a href="https://www.hyrotrader.com/?coupon=swagkong" target="_blank" rel="noopener" class="firm-card rv d3"><img src="hyro.png" alt="HyroTrader"><div class="firm-name">HyroTrader</div></a>
       <a href="https://t.co/XPRI1gzuNB" target="_blank" rel="noopener" class="firm-card rv d4"><img src="8cap.png" alt="8CapChallenge"><div class="firm-name">8CapChallenge</div></a>
       <a href="https://checkout.bemfunding.com/?ref=SwagKong" target="_blank" rel="noopener" class="firm-card rv d5"><img src="bemfunding.png" alt="BemFunding"><div class="firm-name">BemFunding</div></a>
-      <a href="https://fundedtradermarkets.com/ref/swagkong" target="_blank" rel="noopener" class="firm-card rv d6"><img src="ftm.png" alt="Funded Trader Markets"><div class="firm-name">Funded Trader Markets</div></a>
-      <a href="https://go.monetafunded.com/visit/?bta=35301&brand=monetafunded" target="_blank" rel="noopener" class="firm-card rv d7"><img src="moneta.png" alt="Moneta Funded"><div class="firm-name">Moneta Funded</div></a>
-      <a href="https://partners.dnafunded.com/click?campaign_id=1&ref_id=751" target="_blank" rel="noopener" class="firm-card rv d8"><img src="dna.png" alt="DNAFunded"><div class="firm-name">DNAFunded</div></a>
+      <a href="https://app.orionfunded.com/auth/register?ref=11590" target="_blank" rel="noopener" class="firm-card rv d6"><img src="orion.png" alt="Orion Funded"><div class="firm-name">Orion Funded</div></a>
+      <a href="https://app.investabl.ai/r/swagkong" target="_blank" rel="noopener" class="firm-card rv d7"><img src="investabl.png" alt="Investabl"><div class="firm-name">Investabl</div></a>
+      <a href="https://checkout.bullwaves.com/checkout?refcode=SWAGKONG" target="_blank" rel="noopener" class="firm-card rv d8"><img src="bullwaves.png" alt="Bullwaves Prime"><div class="firm-name">Bullwaves Prime</div></a>
     </div>
     <p class="firms-note rv">* Some links are affiliate links — listed for full transparency.</p>
   </div>
@@ -687,6 +712,29 @@ document.addEventListener('DOMContentLoaded', function(){
   if(mb&&mm){
     mb.addEventListener('click',function(){mm.style.display=mm.style.display==='block'?'none':'block';});
     mm.querySelectorAll('a').forEach(function(a){a.addEventListener('click',function(){mm.style.display='none';});});
+  }
+
+  /* COPY CODE */
+  var cb=document.getElementById('copyCode'),ct=document.getElementById('copyTxt');
+  if(cb&&ct){
+    addH(cb);
+    var label=ct.querySelector('span');
+    cb.addEventListener('click',function(){
+      var code=cb.getAttribute('data-code');
+      function done(){
+        cb.classList.add('copied');label.textContent='Copied!';
+        setTimeout(function(){cb.classList.remove('copied');label.textContent='Copy';},1800);
+      }
+      if(navigator.clipboard&&window.isSecureContext){
+        navigator.clipboard.writeText(code).then(done);
+      } else {
+        var t=document.createElement('textarea');
+        t.value=code;t.style.position='fixed';t.style.opacity='0';
+        document.body.appendChild(t);t.select();
+        try{document.execCommand('copy');}catch(e){}
+        document.body.removeChild(t);done();
+      }
+    });
   }
 
   /* TRADINGVIEW */
